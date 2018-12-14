@@ -1,0 +1,7 @@
+Emacs*.bitmapIcon:         off
+Emacs*.menuBar:            off
+Emacs*.verticalScrollBars: off
+Emacs*.toolBar:            off
+Emacs*.cursorBlink:        off
+Emacs*.fontBackend:        xft
+Emacs*.font:               -CTDB-Fira Code-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1

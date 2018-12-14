@@ -1,0 +1,182 @@
+* Modern Day Emacs?
+
+Journey of me writing modern(?) day =.emacs.d= using:
+
+ - =use-package=
+ - =straight.el=
+ - =general.el=
+ - =evil-mode=
+ - =which-key=
+
+** MY PROBLEM
+
+[[./img/meme0.jpg]] [[./img/meme1.jpg]]
+
+[[./img/meme2.jpg]] [[./img/meme3.jpg]]
+
+[[./img/meme4.jpg]]
+
+** My Journey
+
+These problems are getting bigger and my Spacemacs config are getting messier. So I
+decided to write my own =.emacs.d=. After wirting some code I really feel like that
+everyone should wirte their own Emacs configuration, here is why:
+
+ - Different people emphasize on different tech stack, you don't need EVERYTHING
+ - Some prefer *emacs* key bindings while others prefer *vim* key bindings
+ - There EXIST people who use keyboard layout other than QWERTY
+ - The problem with large configuration like *spacemacs* is the same with any complex
+   enough IDE:
+   - Their is a learing curve before you can be productive.
+   - Even you think you are /productive/, you still just use, like 10% of what it offers.
+   - Configuration generally separates into two parts, the default part, or *core* if you
+     prefer, and more flexible part, or *module*. And to be honest, I find it difficult
+     to distinguish them. Because you still need to change the configuration if you want
+     to tweak it no matter which part it from. Code is code.
+
+I know that my problem is unique that not everybody is using emacs
+with evil-mode on a dvorak keyboard. But after writing some lisp
+myself. I find it quite satisfying and enjoyable:
+
+ - Emacs Lisp is extremely well documented.
+   - =C-h k= documentation for a key stroke
+   - =C-h f= documentation for a function
+   - =C-h v= documentation for a variable
+   - =C-h b= list of all keybindings available in current buffer
+   - =C-h S= search symbol in Emacs manual
+ - Emacs ecosystem has advanced a lot since version 22/23. With proper tools
+   one can easily replicated what minimal spacemacs offers.
+   - =use-package= keep your code tidy and fast
+   - =straight.el= drop-in replacement for emacs's stock package manager
+   - =general.el= drop-in replacement for various keybinding methods for
+     both stock emacs an evil-mode
+   - =evil-mode= use Vim inside Emacs
+   - =which-key= display key bindings following your currently entered incomplete
+     command in a popup window
+ - There are a lot of great tutorails and source codes out there that helps you wirte
+   anything you want.
+   - [[The offical GUN Emacs manual][The offical GUN Emacs manual]]
+   - [[https://github.com/chrisdone/elisp-guide][elisp-guide]]
+   - [[https://github.com/noctuid/evil-guide][evil-guide]]
+   - [[https://github.com/caisah/emacs.dz][A list of people with nice emacs config files]]
+   - [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs]]
+   - [[https://nullprogram.com/blog/2017/01/30/][How to Write Fast(er) Emacs Lisp]]
+   - [[https://github.com/hlissner/doom-emacs/wiki/FAQ#how-is-dooms-startup-so-fast][How is Doom’s startup so fast?]]
+
+I also read a lot =Doom=, =Prelude= and =Spacemacs= source code. I learned a lot even just by
+copy-pasting their code. I check every variable and every function I see with =C-h= so that I
+know what they do.
+
+Actually, Spacemacs interally use =use-package= an =which-key=. I think with this
+approach the ideal configuration should look something like this:
+
+[[./img/use-package-fold.png]]
+
+Just bunch of =use-package= forms (use-feature is just a simple wrapper arround use-package).
+
+That being said, there are some minor issues:
+ - =use-package= doesn't offer a convenient why to write code dependent on multiple
+   packages, here is an [[https://github.com/jwiegley/use-package/issues/315][issue]] that describes it. =Spacemacs= solves it by create it's
+   own [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][layer loading mechanism]]. but it's excessive as long as you aren't writing that
+   much code. You can just use our old friend =with-eval-after-load=. Or don't use
+   anything, just make sure your packages are load in order.
+ - Need quite some time to figure out how to glue these five packages together.
+   I haven't found one single =.emacs.d= on github that uses all five package, let alone
+   one with *DVORAK* keybindings support (I can't type on QWERTY).
+ - Need to RTFM. Like, a LOT. And some of them are confusing, like buffers and windows.
+
+Once having a basic setup, one can extend it with ease and efficiency.
+By saying basic setup, I meant to write Emacs Lisp comfortably:
+ - basic theme/font/ui setup that doesn't give me eyesore
+ - a package manager that doesn't suck, e.g. =straight.el=, =el-get=, =quelpa= ...
+ - an autocomplete framework, e.g. =company=, =auto-complete=
+ - a completion framework, e.g. =ivy=, =helm=
+ - a lisp *Structural Editing* framework, e.g. =smartparens=, =paredit=
+ - a lisp *Structural Editing* framework that works with =evil-mode=, e.g. =evil-cleverparen=
+
+Then, just extend Emacs with bunch of =use-package= forms.
+
+Anyway, here I am trying to achieve this. My configuration is optimized for DVORAK keyboard.
+You may not be using DVORAK, but apart from that it's still a good reference to get started
+hacking Emacs. It's using "htns" instead of "hjkl" to move around. It also tries to remap
+possible "C-j" "C-k" "C-n" "C-p" to "C-t" "C-n". And it works with =evil-mode=. It has a
+fast startup time, but I usually use emacs deamon (see scripts directory). Check the tasks
+list for what I've been doing and what'll be implemented in the future.
+
+Hope you find my experience helpful.
+
+** Details
+
+*** TODO TASKS [30/40]
+ - [ ] occur with evil
+ - [ ] company (? seems hard to manage all the backends, need to investigate more)
+   - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
+   - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
+ - [ ] snippet
+ - [ ] org-mode
+ - [ ] workspace management (? but how)
+ - [ ] terminal (? is emacs really suitable for terminal usage)
+ - [ ] auto-compile (? do we need to compile our .emacs.d)
+ - [ ] multiple-cursor (? evil-mc)
+ - [ ] flycheck
+ - [ ] various programming languages (? do we use language server)
+   - [ ] Emacs-Lisp (PROG)
+   - [ ] Clojure
+   - [ ] ...
+ - [X] basic emacs setup (speed up hacks, basic ui tweaks)
+ - [X] straight.el
+ - [X] use-package
+ - [X] general.el
+ - [X] which-key
+ - [X] basic evil setup
+ - [X] basic build-in libraries (hideshow parens hl-line recentf saveplace ...)
+ - [X] smartparens
+ - [X] evil-cleverparen
+ - [X] fira code ligature
+ - [X] basic evil setup with dvorak keybindings
+ - [X] expand-region with evil
+ - [X] avy
+ - [X] basic ivy
+ - [X] basic buffer management
+ - [X] basic counsel
+ - [X] projectile
+ - [X] counsel-projectile
+ - [X] macrostep with evil
+ - [X] page break (ui)
+ - [X] magit and evil-magit
+ - [X] ranger with evil
+ - [X] edebug with evil
+ - [X] expand-region with evil
+ - [X] esup with evil
+ - [X] indent guide
+ - [X] whitespace cleanup
+ - [X] aggressive-indent (? any better auto indent options out there)
+ - [X] xref with evil
+ - [X] window management
+   - [X] winum
+   - [X] evil-window-map
+   - [X] ace-window
+
+*** External Programs
+
+To use my config, you'll also need these.
+
+I'm on debian so...
+
+**** ripgrep
+#+BEGIN_SRC shell
+  curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+  sudo dpkg -i ripgrep_0.10.0_amd64.deb
+#+END_SRC
+
+**** fira code symbol
+#+BEGIN_SRC shell
+  curl -LO https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip
+#+END_SRC
+
+**** fd
+#+BEGIN_SRC shell
+  curl -LO https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_7.2.0_amd64.deb
+#+END_SRC
+
+Happy hacking!
