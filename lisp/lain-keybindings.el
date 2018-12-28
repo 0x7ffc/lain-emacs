@@ -80,10 +80,9 @@ It creates lain-<mode>-map to use with :general keyword"
   "bY"    'lain/copy-whole-buffer-to-clipboard
   "bd"    'kill-current-buffer
   "bm"    'lain/switch-to-message-buffer
-  "bn"    'next-buffer
-  "bp"    'previous-buffer
-  "bs"    'lain/switch-to-scratch-buffer
   "bt"    'next-buffer
+  "bn"    'previous-buffer
+  "bs"    'lain/switch-to-scratch-buffer
   "bx"    'kill-buffer-and-window
   "e"     '(:ignore t :wk "emacs/elisp")
   "ei"    'lain/find-init-file

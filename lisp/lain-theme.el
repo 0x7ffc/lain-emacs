@@ -1,6 +1,6 @@
 ;; lain-theme.el -*- lexical-binding: t; -*-
 
-(defconst lain-packages-with-themes
+(defvar lain-packages-with-themes
   '((srcery-theme
      . (srcery))
     (leuven-theme
@@ -147,7 +147,7 @@
 		   (-contains? (cdr it) name)
 		   lain-packages-with-themes))))
     (if (null pkg)
-	(message "There in no theme named: " name)
+	(message "There in no theme named: %s" name)
       `(use-package ,pkg
 	 :demand t
 	 :config

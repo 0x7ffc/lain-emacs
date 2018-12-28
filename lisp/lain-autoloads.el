@@ -2,11 +2,18 @@
 
 ;;;###autoload
 (defun lain/update ()
+  "Update lain
+It'll rebuild all packages, and git update itself"
   (interactive)
   (when (y-or-n-p "Update now?")
+    (message "Updating installed packages...")
     (straight-pull-all)
     (straight-prune-build)
-    (straight-rebuild-all)))
+    (straight-rebuild-all)
+    (message "Updating Lain")
+    (lain/with-dir "~/.emacs.d/"
+      (shell-command "git pull"))
+    (message "Update finished. Restart Emacs to complete the process.")))
 
 ;;;###autoload
 (defun lain/save-file ()
@@ -161,5 +168,30 @@ If no region is selected then works on current line"
   (if (region-active-p)
       (buffer-substring-no-properties (region-beginning) (region-end))
     (thing-at-point 'symbol t)))
+
+;;;###autoload
+(defmacro lain/with-system (type &rest body)
+  "Evaluate BODY if `system-type' equals TYPE."
+  (declare (indent defun))
+  `(when (eq system-type ',type)
+     ,@body))
+
+;;;###autoload
+(defmacro lain/with-wsl (&rest body)
+  "Evaluate BODY if system is WSL"
+  (declare (indent defun))
+  `(when (string-match "Linux.*Microsoft.*Linux"
+		       (shell-command-to-string "uname -a"))
+     ,@body))
+
+;;;###autoload
+(defmacro lain/with-dir (DIR &rest FORMS)
+  "Execute FORMS in DIR."
+  (declare (indent defun))
+  (let ((orig-dir (gensym)))
+    `(prog2
+	 (setq ,orig-dir default-directory)
+	 (progn (cd ,DIR) ,@FORMS)
+       (cd ,orig-dir))))
 
 (provide 'lain-autoloads)

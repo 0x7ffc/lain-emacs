@@ -15,12 +15,12 @@
    "SPC" 'evil-avy-goto-char-timer
    "wH"  'evil-window-move-far-left
    "wh"  'evil-window-left
-   "wJ"  'evil-window-move-very-bottom
-   "wj"  'evil-window-down
-   "wK"  'evil-window-move-very-top
-   "wk"  'evil-window-up
-   "wL"  'evil-window-move-far-right
-   "wl"  'evil-window-right)
+   "wT"  'evil-window-move-very-bottom
+   "wt"  'evil-window-down
+   "wN"  'evil-window-move-very-top
+   "wn"  'evil-window-up
+   "wS"  'evil-window-move-far-right
+   "ws"  'evil-window-right)
   :config
   (lain/dv-keys nil 'motion
     "j" "J" "k" "l")
