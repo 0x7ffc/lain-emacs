@@ -105,10 +105,70 @@ list for what I've been doing and what'll be implemented in the future.
 
 Hope you find my experience helpful.
 
+** The Workflow
+
+I guess not everybody is gonna read all the code (not too much TBH), so I'll describe what my
+typicle workflow looks like (keep in mind that this is entry level stuff, don't laught at me):
+
+ - Run =ec= in terminal to fire up Emacs server and connect to it (export PATH="$PATH:$HOME/.emacs.d/scripts/).
+ - Switch to a project using =SPC p p=, or =SPC f f= to navigate to a file in a new projcet.
+ - Use =SPC p f= to find file in a project.
+ - In case of =projectile= couldn't find a newly created file or still showing deleted file, run =SPC p I=
+ - File related keybindings are in =SPC f=, e.g.
+   - =SPC f f= get a list of files in current directory to open with
+   - =SPC f D= delete current file and its buffer
+   - =SPC f R= rename current file and its buffer
+   but I usually find myself using =ranger= to manage file (press =-=)
+ - Buffer related keybindings are in =SPC b=, e.g.
+   - =SPC b b= get a list of buffers to switch to
+   - =SPC b d= kill current buffer, but its window is still there
+   - =SPC b x= kill current buffer and its window
+   - =SPC b D= get a list of buffers and choose one to kill
+   - =SPC b t= next buffer
+   - =SPC b n= previous buffer
+ - Window related keybindings are in =SPC w=, e.g.
+   - =SPC w 2= split window vertically
+   - =SPC w 3= split window horizontally
+   - =SPC w h/t/n/s= move to the left/down/up/right window
+   - =SPC 1/2.../9= swtich to a window by number
+   - =SPC w d= delete current window
+ - While editing a file
+   - =C-s= to search text in current buffer
+   - =SPC /= to search text in current project (using =rg=)
+   - =:%s/from/to/g= to find and replace text in current buffer
+ - After editing some file, I fire up magit: =SPC g s=
+   - =gu= go to the unstaged changes
+   - =s y= stage all the changes
+   - =c c= write my commit message and "C-c C-c"
+   - =P p= push to origin
+   - =q= quit magit
+ - =C-x C-c= or =SPC e q= to exit Emacs
+
+Some editing notes:
+
+ - Parentheses are paired using =smartparens=, and =evil-cleverparens= to provide evil integration.
+   Some keybindings I use most:
+   - =M-(= wrap an expression in parentheses
+   - =M-a= insert at end of an expression
+   - =M-i= insert at beginning of an expression
+   - =M-r= raise an expression
+   - =M-s= splice an expression
+   - =_= move to the first non opening charecter
+   - =dd= will not break parenthesis and keep our s-expression correct
+ - =evil-commentary= add comment operator, e.g.
+   - =gcap= to comment current paragraph
+ - =evil-surround= can emulates surround.vim, e.g.
+   - =ysW"= to wrap to word with ="=
+   - =csW"(= change surrounding of a word from ="= to =(=
+ - =expand-region= is integrated with evil. For example, in the string (hello "foo | oo"):
+   - press =v= the first time it will select "foo"
+   - then "\"foo\""
+   - then "hello \"foooo\""
+   - then the whole expression with the parenthesis.
+
 ** Details
 
-*** TODO TASKS [30/40]
- - [ ] occur with evil
+*** TODO TASKS [32/41]
  - [ ] company (? seems hard to manage all the backends, need to investigate more)
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
@@ -130,6 +190,7 @@ Hope you find my experience helpful.
  - [X] which-key
  - [X] basic evil setup
  - [X] basic build-in libraries (hideshow parens hl-line recentf saveplace ...)
+ - [X] basic theme support
  - [X] smartparens
  - [X] evil-cleverparen
  - [X] fira code ligature
@@ -137,6 +198,7 @@ Hope you find my experience helpful.
  - [X] expand-region with evil
  - [X] avy
  - [X] basic ivy
+ - [X] ivy-occur with evil
  - [X] basic buffer management
  - [X] basic counsel
  - [X] projectile
@@ -156,6 +218,25 @@ Hope you find my experience helpful.
    - [X] winum
    - [X] evil-window-map
    - [X] ace-window
+
+*** How to use
+
+#+BEGIN_SRC shell
+mv ~/.emacs.d ~/.emacs.d.backup
+git clone https://github.com/ACEMerlin/lain-emacs.git ~/.emacs.d
+#+END_SRC
+
+*** Note about SPEED
+
+Emacs will initialize tool-bar/menu-bar even if you have disabled them in your
+configuration, to avoid this:
+
+#+BEGIN_SRC shell
+cp ~/.emacs.d/.Xresources.example ~/.Xresources
+xrdb ~/.Xresources
+#+END_SRC
+
+You may want to put last line in your zshrc or bashrc.
 
 *** External Programs
 
