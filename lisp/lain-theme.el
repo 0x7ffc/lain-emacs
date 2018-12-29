@@ -1,7 +1,9 @@
 ;; lain-theme.el -*- lexical-binding: t; -*-
 
 (defvar lain-packages-with-themes
-  '((srcery-theme
+  '((zenburn-theme
+     . (zenburn))
+    (srcery-theme
      . (srcery))
     (leuven-theme
      . (leuven
@@ -140,19 +142,35 @@
 	base16-unikitty-light
 	base16-woodland
 	base16-xcode-dusk
-	base16-zenburn))))
+	base16-zenburn)))
+  "alist of packages and its themes")
 
-(defmacro lain/load-theme (name)
+(defvar lain--current-theme nil
+  "Internal variable storing currently loaded theme.")
+
+(defun lain/load-theme (name)
+  "Load theme with its corresponding package using `use-package'"
   (let ((pkg (car (--first
 		   (-contains? (cdr it) name)
 		   lain-packages-with-themes))))
     (if (null pkg)
 	(message "There in no theme named: %s" name)
-      `(use-package ,pkg
-	 :demand t
-	 :config
-	 (load-theme ',name t)))))
+      (eval `(use-package ,pkg
+	       :demand t
+	       :config
+	       (load-theme ',name t)
+	       (setq-default lain--current-theme ',name))))))
 
-(lain/load-theme srcery)
+(lain/load-theme (car lain-themes))
+
+(defun lain/cycle-themes (&optional backward)
+  "Cycle through themes defined in `lain-themes.'
+When BACKWARD is non-nil, cycle backwards."
+  (interactive "P")
+  (let* ((themes (if backward (reverse lain-themes) lain-themes))
+	 (next-theme (car (or (cdr (memq lain--current-theme themes))
+			      themes))))
+    (disable-theme lain--current-theme)
+    (lain/load-theme next-theme)))
 
 (provide 'lain-theme)

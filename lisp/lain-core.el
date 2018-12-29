@@ -29,9 +29,9 @@
   :config
   (general-create-definer lain-leader-def
     :keymaps '(normal visual insert emacs)
-    :prefix "SPC"
+    :prefix lain-leader-key
     :prefix-map 'lain-leader-map
-    :non-normal-prefix "C-c"))
+    :non-normal-prefix lain-emacs-leader-key))
 
 (use-package no-littering
   :demand t
@@ -199,17 +199,13 @@
   ;; (see https://github.com/company-mode/company-mode/issues/416)
   (defmacro lain/fix-company-conflict (mode)
     "Sometimes we need to disable company when other mode is around"
-    (let ((status (intern (format "lain//%s-company-status" mode)))
+    (let ((status (intern (format "lain--%s-company-status" mode)))
 	  (disable-fn (intern (format "lain//disable-%s-when-company-activates" mode)))
 	  (enable-fn (intern (format "lain//enable-%s-when-company-deactivates" mode))))
       `(progn
 	 (defvar-local ,status nil)
-	 (defun ,disable-fn (&rest _)
-	   (when (setq ,status (bound-and-true-p ,mode))
-	     (,mode -1)))
-	 (defun ,enable-fn (&rest _)
-	   (when ,status
-	     (,mode +1)))
+	 (defun ,disable-fn (&rest _) (when (setq ,status (bound-and-true-p ,mode)) (,mode -1)))
+	 (defun ,enable-fn (&rest _) (when ,status (,mode +1)))
 	 (add-hook 'company-completion-started-hook #',disable-fn)
 	 (add-hook 'company-after-completion-hook #',enable-fn)))))
 

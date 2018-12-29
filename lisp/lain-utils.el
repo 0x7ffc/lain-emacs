@@ -28,11 +28,27 @@
   (lain-leader-map
    "gs" 'magit-status
    "gi" 'magit-init)
+  (magit-status-mode-map
+   "Q" 'lain/magit-kill-buffers)
   :init
   (setq
    magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
    magit-completing-read-function #'ivy-completing-read)
   :config
-  (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j))
+  (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
+
+  (defun lain/magit-kill-buffers ()
+    "Restore window configuration and kill all Magit buffers."
+    (interactive)
+    (let ((buffers (magit-mode-get-buffers)))
+      (magit-restore-window-configuration)
+      (-each buffers 'kill-buffer))))
+
+(use-package evil-magit
+  :demand t
+  :after (evil magit)
+  :config
+  (lain/dv-keys `(,evil-magit-state visual) 'magit-mode-map
+    "j" "k" "C-j" "C-k"))
 
 (provide 'lain-utils)

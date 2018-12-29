@@ -24,7 +24,7 @@ It creates lain-<mode>-map to use with :general keyword"
 	(keymap (or keymap (intern (format "%s-map" mode)))))
     `(general-define-key
       :states 'normal
-      :prefix ","
+      :prefix ,lain-major-mode-leader-key
       :keymaps ',keymap
       :prefix-map ',prefix-map)))
 
@@ -80,12 +80,13 @@ It creates lain-<mode>-map to use with :general keyword"
   "bY"    'lain/copy-whole-buffer-to-clipboard
   "bd"    'kill-current-buffer
   "bm"    'lain/switch-to-message-buffer
-  "bt"    'next-buffer
   "bn"    'previous-buffer
   "bs"    'lain/switch-to-scratch-buffer
+  "bt"    'next-buffer
   "bx"    'kill-buffer-and-window
   "e"     '(:ignore t :wk "emacs/elisp")
   "ei"    'lain/find-init-file
+  "eI"    'lain/find-lain-main-file
   "eq"    'save-buffers-kill-terminal
   "eu"    'lain/update
   "f"     '(:ignore t :wk "file")
@@ -98,16 +99,21 @@ It creates lain-<mode>-map to use with :general keyword"
   "ib"    'lain/insert-page-break
   "in"    'lain/insert-newline-above
   "it"    'lain/insert-newline-below
+  "nf"    'narrow-to-defun
+  "np"    'narrow-to-page
+  "nr"    'narrow-to-region
+  "nw"    'widen
   "p"     '(:ignore t :wk "project")
-  "t"     '(:ignore t :wk "toggle")
+  "t"     '(:ignore t :wk "toggle/theme")
   "tF"    'toggle-frame-fullscreen
+  "tC"    'lain/cycle-themes
   "u"     'universal-argument
   "w"     '(:ignore t :wk "window")
   "w2"    'lain/split-window-below-and-focus
   "w3"    'lain/split-window-right-and-focus
+  "wO"    'delete-other-windows
   "wd"    'delete-window
   "wo"    'other-window
-  "wO"    'delete-other-windows
   "ws"    'lain/swap-window
   "x"     '(:ignore t :wk "text")
   "xl"    '(:ignore t :wk "lines")

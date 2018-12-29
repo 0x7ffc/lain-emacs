@@ -3,27 +3,43 @@
 (use-feature lisp-mode
   :demand t
   :lain-major-mode emacs-lisp-mode
-  :gfhook ('emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
+  :gfhook
+  ('emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
+  ('emacs-lisp-mode-hook 'evil-cleverparens-mode)
   :general
   (lain-emacs-lisp-mode-map
    "c" 'emacs-lisp-byte-compile
-   "e" 'lain/eval-current-form-cp
-   "s" 'lain/eval-current-symbol-cp
-   "f" 'eval-defun
+   "e" 'lain/eval-current-form-sp
+   "s" 'lain/eval-current-symbol-sp
+   "f" 'lain/eval-current-form
    "d" 'edebug-defun
    "b" 'eval-buffer)
   :config
-  (defun lain/eval-current-form-cp (&optional arg)
-    "Call `eval-last-sexp' after moving out of `arg' levels of parentheses"
-    (interactive "p")
-    (save-excursion
-      (evil-cp-up-sexp arg)
-      (call-interactively 'eval-last-sexp)))
-  (defun lain/eval-current-symbol-cp ()
+  ;; Borrowed from Spacemacs
+  (defun lain/eval-current-form ()
+    "Find and evaluate the current def* or set* command.
+Unlike `eval-defun', this does not go to topmost function."
     (interactive)
     (save-excursion
-      (evil-cp-forward-symbol-end)
-      (call-interactively 'eval-last-sexp))))
+      (search-backward-regexp "(def\\|(set")
+      (forward-list)
+      (call-interactively 'eval-last-sexp)))
+
+  (defun lain/eval-current-form-sp (&optional arg)
+    "Call `eval-last-sexp' after moving out of `arg' levels of parentheses"
+    (interactive "p")
+    (let ((evil-move-beyond-eol t))
+      (save-excursion
+	(sp-up-sexp arg)
+	(call-interactively 'eval-last-sexp))))
+
+  (defun lain/eval-current-symbol-sp ()
+    "Call `eval-last-sexp' on the symbol around point. "
+    (interactive)
+    (let ((evil-move-beyond-eol t))
+      (save-excursion
+	(sp-forward-symbol)
+	(call-interactively 'eval-last-sexp)))))
 
 (use-package macrostep
   :gfhook 'evil-normalize-keymaps
@@ -79,5 +95,20 @@
 (use-package aggressive-indent
   :diminish
   :ghook 'emacs-lisp-mode-hook)
+
+;; (use-package lispyville
+;;   :ghook 'emacs-lisp-mode-hook
+;;   :config
+;;   (lispyville-set-key-theme
+;;    '((operators normal)
+;;      c-w
+;;      (prettify insert)
+;;      (atom-movement normal visual)
+;;      (slurp/barf-lispy)
+;;      (wrap normal insert)
+;;      additional
+;;      additional-insert
+;;      (additional-wrap normal insert)
+;;      (escape insert))))
 
 (provide 'lain-emacs-lisp)

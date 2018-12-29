@@ -153,6 +153,7 @@ Some editing notes:
    - =M-i= insert at beginning of an expression
    - =M-r= raise an expression
    - =M-s= splice an expression
+   - =<= and =>= to slurp expression
    - =_= move to the first non opening charecter
    - =dd= will not break parenthesis and keep our s-expression correct
  - =evil-commentary= add comment operator, e.g.
@@ -160,6 +161,8 @@ Some editing notes:
  - =evil-surround= can emulates surround.vim, e.g.
    - =ysW"= to wrap to word with ="=
    - =csW"(= change surrounding of a word from ="= to =(=
+ - =evil-lion= add align text operator, e.g.
+   - =glap'= to align current paragraph using ='=
  - =expand-region= is integrated with evil. For example, in the string (hello "foo | oo"):
    - press =v= the first time it will select "foo"
    - then "\"foo\""
@@ -172,8 +175,10 @@ Some editing notes:
  - [ ] company (? seems hard to manage all the backends, need to investigate more)
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
+ - [ ] imenu (imenu-list imenu-everywhere counsel-imenu)
  - [ ] snippet
  - [ ] org-mode
+ - [ ] popup management (? shackle)
  - [ ] workspace management (? but how)
  - [ ] terminal (? is emacs really suitable for terminal usage)
  - [ ] auto-compile (? do we need to compile our .emacs.d)
@@ -219,12 +224,17 @@ Some editing notes:
    - [X] evil-window-map
    - [X] ace-window
 
-*** How to use
+*** How to Use
 
 #+BEGIN_SRC shell
 mv ~/.emacs.d ~/.emacs.d.backup
 git clone https://github.com/ACEMerlin/lain-emacs.git ~/.emacs.d
+cp ~/.emacs.d/personal/lain.el.example ~/.emacs.d/personal/lain.el
 #+END_SRC
+
+Customize =lain.el= to your needs. ("SPC e I" to open it)
+
+Also any lisp files inside =personal= directory will be loaded.
 
 *** Note about SPEED
 

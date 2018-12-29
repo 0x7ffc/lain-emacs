@@ -13,9 +13,7 @@
 (blink-cursor-mode -1)
 (fset #'display-startup-echo-area-message #'ignore)
 (setq
- default-frame-alist '((fullscreen               . fullboth)
-		       (font                     . "Fira Code")
-		       (tool-bar-lines           . 0)
+ default-frame-alist '((tool-bar-lines           . 0)
 		       (menu-bar-lines           . 0)
 		       (inhibit-double-buffering . t)
 		       (vertical-scroll-bars     . nil)
@@ -33,6 +31,18 @@
  sentence-end-double-space nil
  initial-scratch-message nil
  )
+
+(defun lain/set-default-font (font)
+  (when (find-font (font-spec :name (car font)))
+    (let* ((font-name (car font))
+	   (props (cdr font))
+	   (fontspec (apply 'font-spec :name font-name props)))
+      (add-to-list 'default-frame-alist
+		   (cons 'font (font-xlfd-name fontspec))))))
+(lain/set-default-font lain-font)
+
+(when lain-fullscreen-at-startup
+  (add-to-list 'default-frame-alist '(fullscreen . fullboth)))
 
 (use-feature lain-fira-code
   :diminish
@@ -75,9 +85,7 @@
    "tr" 'rainbow-delimiters-mode))
 
 (use-package paren-face
-  :demand t
-  :config
-  (global-paren-face-mode))
+  :ghook 'emacs-lisp-mode-hook)
 
 (use-package hl-todo
   :ghook

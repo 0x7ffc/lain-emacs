@@ -1,0 +1,34 @@
+;; lain.el -*- lexical-binding: t; -*-
+
+(defun lain/init ()
+  (setq-default
+   ;; Use `SPC t C' to cycle through themes
+   lain-themes '(zenburn
+		 base16-ocean)
+   lain-font '("Fira Code"
+	       ;;:size 14
+	       :weight normal
+	       :width normal)
+   lain-leader-key "SPC"
+   lain-emacs-leader-key "C-c"
+   lain-major-mode-leader-key ","
+   lain-fullscreen-at-startup nil
+   lain-modules
+   '(
+     lain-utils
+     lain-emacs-lisp
+     )
+   ))
+
+(defun lain/user-init ()
+  "Run after `lain/init' and before packages are loaded"
+  )
+
+(defun lain/user-config ()
+  "Run after packages are loaded
+If this get messy you can extract it into files
+and put it into `personal' directory, lain'll load
+any lisp file inside"
+  )
+
+(provide 'lain)

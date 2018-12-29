@@ -74,7 +74,12 @@ If the universal prefix argument then don't kill specail buffer."
 ;;;###autoload
 (defun lain/find-init-file ()
   (interactive)
-  (find-file user-init-file))
+  (find-file lain-init-file))
+
+;;;###autoload
+(defun lain/find-lain-main-file ()
+  (interactive)
+  (find-file lain-main-file))
 
 ;;;###autoload
 (defun lain/switch-to-scratch-buffer ()

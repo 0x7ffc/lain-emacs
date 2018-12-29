@@ -6,3 +6,4 @@ etc/
 custom.el
 recentf
 *.elc
+personal/lain.el

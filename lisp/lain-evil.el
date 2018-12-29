@@ -62,32 +62,9 @@
 
 (use-package evil-cleverparens
   :diminish
-  :ghook 'emacs-lisp-mode-hook
   :config
   (lain/dv-keys 'normal 'evil-cleverparens-mode-map
     "l" "M-j" "M-k")
   (evil-cleverparens-mode +1))
-
-(use-package evil-magit
-  :demand t
-  :after (evil magit)
-  :config
-  (lain/dv-keys `(,evil-magit-state visual) 'magit-mode-map
-    "j" "k" "C-j" "C-k"))
-
-;; (use-package lispyville
-;;   :ghook 'emacs-lisp-mode-hook
-;;   :config
-;;   (lispyville-set-key-theme
-;;    '((operators normal)
-;;      c-w
-;;      (prettify insert)
-;;      (atom-movement normal visual)
-;;      (slurp/barf-lispy)
-;;      (wrap normal insert)
-;;      additional
-;;      additional-insert
-;;      (additional-wrap normal insert)
-;;      (escape insert))))
 
 (provide 'lain-evil)
