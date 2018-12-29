@@ -168,11 +168,16 @@ If no region is selected then works on current line"
     (insert insertion)))
 
 ;;;###autoload
-(defun lain/symbol-at-point ()
-  "Return symbol at point or selected region when region is active"
-  (if (region-active-p)
-      (buffer-substring-no-properties (region-beginning) (region-end))
-    (thing-at-point 'symbol t)))
+(defun lain/symbol-at-point (&optional preserve)
+  "Return symbol at point or selected region when region is active
+If `preserve' in non-nil preserve current state."
+  (let ((result (if (region-active-p)
+		    (buffer-substring-no-properties (region-beginning) (region-end))
+		  (thing-at-point 'symbol t))))
+    (when (and (not preserve)
+	       (evil-visual-state-p))
+      (evil-exit-visual-state))
+    result))
 
 ;;;###autoload
 (defmacro lain/with-system (type &rest body)

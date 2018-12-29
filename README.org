@@ -176,6 +176,7 @@ Some editing notes:
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
  - [ ] imenu (imenu-list imenu-everywhere counsel-imenu)
+ - [ ] text folding with evil (? evil-vimish-fold and hideshow)
  - [ ] snippet
  - [ ] org-mode
  - [ ] popup management (? shackle)

@@ -46,7 +46,7 @@
 
 (use-package swiper
   :general
-  (normal
+  ((normal visual)
    "*"   'lain/swiper-at-point
    "M-*" 'lain/swiper-all-at-point)
   :config
