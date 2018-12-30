@@ -1,7 +1,18 @@
 ;; lain-emacs-lisp.el -*- lexical-binding: t; -*-
 
-(use-feature lisp-mode
-  :demand t
+
+;; From Doom Emacs, to defer loading elisp-mode
+(delq 'elisp-mode features)
+(advice-add #'emacs-lisp-mode :before #'defer-elisp-mode)
+(defun defer-elisp-mode (&rest _)
+  (when (and emacs-lisp-mode-hook
+	     (not delay-mode-hooks))
+    (provide 'elisp-mode)
+    (advice-remove #'emacs-lisp-mode #'defer-elisp-mode)))
+
+
+;; Main config
+(use-feature elisp-mode
   :lain-major-mode emacs-lisp-mode
   :gfhook
   ('emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
@@ -12,7 +23,6 @@
    "e" 'lain/eval-current-form-sp
    "s" 'lain/eval-current-symbol-sp
    "f" 'lain/eval-current-form
-   "d" 'edebug-defun
    "b" 'eval-buffer)
   :config
   ;; Borrowed from Spacemacs
@@ -24,7 +34,6 @@ Unlike `eval-defun', this does not go to topmost function."
       (search-backward-regexp "(def\\|(set")
       (forward-list)
       (call-interactively 'eval-last-sexp)))
-
   (defun lain/eval-current-form-sp (&optional arg)
     "Call `eval-last-sexp' after moving out of `arg' levels of parentheses"
     (interactive "p")
@@ -32,7 +41,6 @@ Unlike `eval-defun', this does not go to topmost function."
       (save-excursion
 	(sp-up-sexp arg)
 	(call-interactively 'eval-last-sexp))))
-
   (defun lain/eval-current-symbol-sp ()
     "Call `eval-last-sexp' on the symbol around point. "
     (interactive)
@@ -86,7 +94,21 @@ Unlike `eval-defun', this does not go to topmost function."
    "p" 'edebug-bounce-point
    "w" 'edebug-where
    "W" 'edebug-toggle-save-windows
-   "e" 'edebug-eval-expression))
+   "e" 'edebug-eval-expression)
+  (lain-emacs-lisp-mode-map
+   "d" 'lain/edebug-defun)
+  :init
+  (defun lain/edebug-defun ()
+    "Find and edebug the current def* command.
+Unlike `edebug-defun', this does not go to topmost function."
+    (interactive)
+    (save-excursion
+      (search-backward-regexp "(def")
+      (mark-sexp)
+      (narrow-to-region (point) (mark))
+      (edebug-defun)
+      (message "Edebug enabled")
+      (widen))))
 
 (use-package indent-guide
   :diminish
@@ -95,6 +117,14 @@ Unlike `eval-defun', this does not go to topmost function."
 (use-package aggressive-indent
   :diminish
   :ghook 'emacs-lisp-mode-hook)
+
+(use-package elisp-def
+  :diminish
+  :ghook 'emacs-lisp-mode-hook
+  :general
+  ((normal insert)
+   elisp-def-mode-map
+   "M-." 'elisp-def))
 
 ;; (use-package lispyville
 ;;   :ghook 'emacs-lisp-mode-hook

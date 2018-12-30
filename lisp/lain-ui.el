@@ -96,9 +96,6 @@
   :diminish
   :ghook
   'text-mode-hook
-  'prog-mode-hook
-  :config
-  (after company
-    (lain/fix-company-conflict page-break-lines-mode)))
+  'prog-mode-hook)
 
 (provide 'lain-ui)

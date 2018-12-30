@@ -174,41 +174,6 @@
   :config
   (winum-mode))
 
-(use-package company
-  :diminish
-  :defer .1
-  :general
-  (company-active-map
-   "C-t" 'company-select-next
-   "C-n" 'company-select-previous
-   "C-u" 'company-previous-page
-   "C-d" 'company-next-page)
-  :init
-  (setq
-   company-require-match nil
-   company-idle-delay 0.1
-   company-tooltip-idle-delay 0.1
-   company-tooltip-align-annotations nil
-   company-minimum-prefix-length 2
-   company-dabbrev-code-other-buffers t
-   company-dabbrev-ignore-case nil
-   company-dabbrev-downcase nil)
-  :config
-  (global-company-mode +1)
-
-  ;; (see https://github.com/company-mode/company-mode/issues/416)
-  (defmacro lain/fix-company-conflict (mode)
-    "Sometimes we need to disable company when other mode is around"
-    (let ((status (intern (format "lain--%s-company-status" mode)))
-	  (disable-fn (intern (format "lain//disable-%s-when-company-activates" mode)))
-	  (enable-fn (intern (format "lain//enable-%s-when-company-deactivates" mode))))
-      `(progn
-	 (defvar-local ,status nil)
-	 (defun ,disable-fn (&rest _) (when (setq ,status (bound-and-true-p ,mode)) (,mode -1)))
-	 (defun ,enable-fn (&rest _) (when ,status (,mode +1)))
-	 (add-hook 'company-completion-started-hook #',disable-fn)
-	 (add-hook 'company-after-completion-hook #',enable-fn)))))
-
 (use-feature vc
   :demand t
   :config

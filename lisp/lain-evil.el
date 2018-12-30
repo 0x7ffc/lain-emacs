@@ -60,6 +60,17 @@
   :config
   (evil-goggles-mode +1))
 
+(use-package evil-escape
+  :demand t
+  :after evil
+  :init
+  (setq
+   evil-escape-excluded-states '(normal visual emacs motion)
+   evil-escape-key-sequence "tn"
+   evil-escape-delay 0.2)
+  :config
+  (evil-escape-mode +1))
+
 (use-package evil-cleverparens
   :diminish
   :config
