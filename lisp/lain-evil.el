@@ -29,6 +29,10 @@
   (diminish 'undo-tree-mode)  ;; please remove undo-tree from evil...
   (evil-mode 1))
 
+(use-feature evil-evilified-state
+  :demand t
+  :after evil)
+
 (use-package evil-surround
   :demand t
   :after evil
@@ -65,7 +69,7 @@
   :after evil
   :init
   (setq
-   evil-escape-excluded-states '(normal visual emacs motion)
+   evil-escape-excluded-states '(normal visual emacs motion evilified)
    evil-escape-key-sequence "tn"
    evil-escape-delay 0.2)
   :config

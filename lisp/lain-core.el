@@ -28,7 +28,7 @@
   :demand t
   :config
   (general-create-definer lain-leader-def
-    :keymaps '(normal visual insert emacs)
+    :keymaps '(normal visual insert emacs evilified)
     :prefix lain-leader-key
     :prefix-map 'lain-leader-map
     :non-normal-prefix lain-emacs-leader-key))
@@ -206,14 +206,19 @@
   (let ((inhibit-message t))
     (recentf-mode 1)))
 
-(use-feature ibuffer
-  :after evil
+(use-package ibuffer
   :general
   ([remap list-buffers] 'ibuffer)
   (lain-leader-map
    "bB" 'ibuffer)
   :config
-  (evil-ex-define-cmd "buffers" 'ibuffer))
+  (evil-ex-define-cmd "buffers" 'ibuffer)
+  (evilified-state-evilify-map ibuffer-mode-map
+    :mode ibuffer-mode
+    :bindings
+    "gr" 'ibuffer-update
+    "gt" 'ibuffer-forward-filter-group
+    "gn" 'ibuffer-backward-filter-group))
 
 (use-feature winner
   :commands (winner-undo winner-redo)

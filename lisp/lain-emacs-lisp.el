@@ -65,39 +65,10 @@ Unlike `eval-defun', this does not go to topmost function."
 (use-feature edebug
   :gfhook 'evil-normalize-keymaps
   :general
-  (normal
-   edebug-mode-map
-   "S" 'edebug-stop
-   "s" 'edebug-step-mode
-   "n" 'edebug-next-mode
-   "t" 'edebug-trace-mode
-   "T" 'edebug-Trace-fast-mode
-   "g" 'edebug-go-mode
-   "c" 'edebug-continue-mode
-   "C" 'edebug-Continue-fast-mode
-   "G" 'edebug-Go-nonstop-mode
-   "h" 'edebug-goto-here
-   "f" 'edebug-forward-sexp
-   "o" 'edebug-step-out
-   "i" 'edebug-step-in
-   "?" 'edebug-help
-   "a" 'abort-recursive-edit
-   "q" 'top-level
-   "Q" 'edebug-eval-top-level-form
-   "r" 'edebug-previous-result
-   "d" 'edebug-backtrace
-   "b" 'edebug-set-breakpoint
-   "u" 'ebebug-unset-breadpoint
-   "x" 'edebug-set-conditional-breakpoint
-   "B" 'edebug-next-breakpoint
-   "v" 'edebug-view-outside
-   "p" 'edebug-bounce-point
-   "w" 'edebug-where
-   "W" 'edebug-toggle-save-windows
-   "e" 'edebug-eval-expression)
   (lain-emacs-lisp-mode-map
    "d" 'lain/edebug-defun)
-  :init
+  :config
+  (evil-set-initial-state edebug-mode 'normal)
   (defun lain/edebug-defun ()
     "Find and edebug the current def* command.
 Unlike `edebug-defun', this does not go to topmost function."
@@ -108,6 +79,7 @@ Unlike `edebug-defun', this does not go to topmost function."
       (narrow-to-region (point) (mark))
       (edebug-defun)
       (message "Edebug enabled")
+      (deactivate-mark)
       (widen))))
 
 (use-package indent-guide
