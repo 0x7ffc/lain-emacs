@@ -163,6 +163,7 @@
 
 (lain/load-theme (car lain-themes))
 
+;;;###autoload
 (defun lain/cycle-themes (&optional backward)
   "Cycle through themes defined in `lain-themes.'
 When BACKWARD is non-nil, cycle backwards."

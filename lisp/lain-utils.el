@@ -36,7 +36,6 @@
    magit-completing-read-function #'ivy-completing-read)
   :config
   (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
-
   (defun lain/magit-kill-buffers ()
     "Restore window configuration and kill all Magit buffers."
     (interactive)
