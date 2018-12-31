@@ -98,19 +98,4 @@ Unlike `edebug-defun', this does not go to topmost function."
    elisp-def-mode-map
    "M-." 'elisp-def))
 
-;; (use-package lispyville
-;;   :ghook 'emacs-lisp-mode-hook
-;;   :config
-;;   (lispyville-set-key-theme
-;;    '((operators normal)
-;;      c-w
-;;      (prettify insert)
-;;      (atom-movement normal visual)
-;;      (slurp/barf-lispy)
-;;      (wrap normal insert)
-;;      additional
-;;      additional-insert
-;;      (additional-wrap normal insert)
-;;      (escape insert))))
-
 (provide 'lain-emacs-lisp)

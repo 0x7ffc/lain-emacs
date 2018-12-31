@@ -66,7 +66,7 @@
   :after evil
   :init
   (setq
-   evil-escape-excluded-states '(normal visual emacs motion)
+   evil-escape-excluded-states '(normal visual emacs motion multiedit)
    evil-escape-key-sequence "tn"
    evil-escape-delay 0.2)
   :config
@@ -78,5 +78,21 @@
   (lain/dv-keys 'normal 'evil-cleverparens-mode-map
     "l" "M-j" "M-k")
   (evil-cleverparens-mode +1))
+
+(use-package evil-multiedit
+  :general
+  ("C->" 'evil-multiedit-match-and-next
+   "C-<" 'evil-multiedit-match-and-prev)
+  (lain-leader-map
+   "mm" 'evil-multiedit-match-all
+   "mr" 'evil-multiedit-restore
+   "ma" 'evil-multiedit-toggle-marker-here)
+  (evil-multiedit-insert-state-map
+   "C-t" 'evil-multiedit-next
+   "C-n" 'evil-multiedit-prev)
+  (evil-multiedit-state-map
+   "RET" 'evil-multiedit-toggle-or-restrict-region
+   "C-t" 'evil-multiedit-next
+   "C-n" 'evil-multiedit-prev))
 
 (provide 'lain-evil)

@@ -179,6 +179,17 @@ If `preserve' in non-nil preserve current marker."
     (thing-at-point 'symbol t)))
 
 ;;;###autoload
+(defun lain/narrow-to-defun ()
+  "Find and narrow the current def* form.
+Unlike `narrow-to-defun', this does not go to topmost function."
+  (interactive)
+  (save-excursion
+    (search-backward-regexp "(def")
+    (mark-sexp)
+    (narrow-to-region (point) (mark))
+    (deactivate-mark)))
+
+;;;###autoload
 (defmacro lain/with-system (type &rest body)
   "Evaluate BODY if `system-type' equals TYPE."
   (declare (indent defun))

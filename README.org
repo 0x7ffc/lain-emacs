@@ -171,7 +171,7 @@ Some editing notes:
 
 ** Details
 
-*** TODO TASKS [32/41]
+*** TODO TASKS [33/44]
  - [ ] company (? seems hard to manage all the backends, need to investigate more)
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
@@ -183,7 +183,6 @@ Some editing notes:
  - [ ] workspace management (? but how)
  - [ ] terminal (? is emacs really suitable for terminal usage)
  - [ ] auto-compile (? do we need to compile our .emacs.d)
- - [ ] multiple-cursor (? evil-mc)
  - [ ] flycheck
  - [ ] various programming languages (? do we use language server)
    - [ ] Emacs-Lisp (PROG)
@@ -220,6 +219,7 @@ Some editing notes:
  - [X] whitespace cleanup
  - [X] aggressive-indent (? any better auto indent options out there)
  - [X] xref with evil
+ - [X] multiple-cursor (evil-multiedit)
  - [X] window management
    - [X] winum
    - [X] evil-window-map

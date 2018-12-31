@@ -99,7 +99,9 @@ It creates lain-<mode>-map to use with :general keyword"
   "ib"    'lain/insert-page-break
   "in"    'lain/insert-newline-above
   "it"    'lain/insert-newline-below
-  "nf"    'narrow-to-defun
+  "m"     '(:ignore t :which-key "multiedit")
+  "n"     '(:ignore t :wk "narrow")
+  "nf"    'lain/narrow-to-defun
   "np"    'narrow-to-page
   "nr"    'narrow-to-region
   "nw"    'widen
@@ -109,6 +111,7 @@ It creates lain-<mode>-map to use with :general keyword"
   "tC"    'lain/cycle-themes
   "u"     'universal-argument
   "w"     '(:ignore t :wk "window")
+  "w1"    'delete-other-windows
   "w2"    'lain/split-window-below-and-focus
   "w3"    'lain/split-window-right-and-focus
   "wO"    'delete-other-windows
