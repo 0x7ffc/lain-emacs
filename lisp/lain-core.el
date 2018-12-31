@@ -214,6 +214,15 @@
   :config
   (evil-ex-define-cmd "buffers" 'ibuffer))
 
+(use-package ibuffer-projectile
+  :after ibuffer
+  :gfhook ('ibuffer-hook 'lain//ibuffer-sort-by-project)
+  :init
+  (defun lain//ibuffer-sort-by-project ()
+    (ibuffer-projectile-set-filter-groups)
+    (unless (eq ibuffer-sorting-mode 'alphabetic)
+      (ibuffer-do-sort-by-alphabetic))))
+
 (use-feature winner
   :commands (winner-undo winner-redo)
   :preface (defvar winner-dont-bind-my-keys t)
