@@ -13,8 +13,10 @@
    lain-emacs-leader-key "C-c"
    lain-major-mode-leader-key ","
    lain-fullscreen-at-startup nil
+   lain-inhibit-startup-time nil
    lain-modules
    '(
+     lain-company
      lain-utils
      lain-emacs-lisp
      )

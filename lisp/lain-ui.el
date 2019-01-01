@@ -56,7 +56,7 @@
 ;; Enable evil-mode's code folding feature: `zm' `zr'
 (use-feature hideshow
   :diminish hs-minor-mode
-  :ghook ('prog-mode-hook #'hs-minor-mode))
+  :ghook ('prog-mode-hook 'hs-minor-mode))
 
 (use-feature hl-line
   :ghook
@@ -97,5 +97,22 @@
   :ghook
   'text-mode-hook
   'prog-mode-hook)
+
+(use-package all-the-icons
+  :commands (all-the-icons-octicon
+	     all-the-icons-faicon
+	     all-the-icons-fileicon
+	     all-the-icons-wicon
+	     all-the-icons-material
+	     all-the-icons-alltheicon
+	     all-the-icons-install-fonts))
+
+(use-package doom-modeline
+  :ghook ('after-init-hook 'doom-modeline-init)
+  :init
+  (setq
+   doom-modeline-major-mode-icon nil
+   doom-modeline-bar-width 3
+   doom-modeline-buffer-file-name-style 'relative-to-project))
 
 (provide 'lain-ui)

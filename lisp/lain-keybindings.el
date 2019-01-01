@@ -85,6 +85,7 @@ It creates lain-<mode>-map to use with :general keyword"
   "bt"    'next-buffer
   "bx"    'kill-buffer-and-window
   "e"     '(:ignore t :wk "emacs/elisp")
+  "eb"    'esup
   "ei"    'lain/find-init-file
   "eI"    'lain/find-lain-main-file
   "eq"    'save-buffers-kill-terminal

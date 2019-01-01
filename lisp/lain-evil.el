@@ -6,6 +6,7 @@
   :defer .1  ;; we want evil but we also want SPEED...
   :init
   (setq
+   evil-ex-visual-char-range t
    evil-disable-insert-state-bindings t
    evil-want-C-i-jump nil
    evil-want-C-u-scroll t
@@ -67,8 +68,7 @@
   :init
   (setq
    evil-escape-excluded-states '(normal visual emacs motion multiedit)
-   evil-escape-key-sequence "tn"
-   evil-escape-delay 0.2)
+   evil-escape-key-sequence "tn")
   :config
   (evil-escape-mode +1))
 

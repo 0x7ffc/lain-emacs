@@ -4,6 +4,7 @@
 (fset #'yes-or-no-p #'y-or-n-p)
 (electric-indent-mode -1)
 (setq
+ inhibit-compacting-font-caches t
  auto-save-default nil
  create-lockfiles nil
  make-backup-files nil
@@ -62,6 +63,7 @@
 
 (use-package projectile
   :diminish
+  :defer .5
   :general
   (lain-leader-map
    "pp" 'projectile-switch-project
@@ -178,7 +180,7 @@
   :demand t
   :config
   (remove-hook 'find-file-hook 'vc-find-file-hook)
-  (setq vc-handled-backends nil))
+  (setq vc-handled-backends '(Git)))
 
 (use-feature autorevert
   :demand t
