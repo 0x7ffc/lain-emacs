@@ -23,6 +23,7 @@
    "e" 'lain/eval-current-form-sp
    "s" 'lain/eval-current-symbol-sp
    "f" 'lain/eval-current-form
+   "F" 'eval-defun
    "b" 'eval-buffer)
   :config
   ;; Borrowed from Spacemacs
@@ -66,7 +67,16 @@ Unlike `eval-defun', this does not go to topmost function."
   :gfhook 'evil-normalize-keymaps
   :general
   (lain-emacs-lisp-mode-map
-   "d" 'lain/edebug-defun)
+   "d" 'lain/edebug-defun
+   "D" 'edebug-defun)
+  (edebug-mode-map
+   "t"   'evil-next-line
+   "T"   'edebug-trace-mode
+   "C-t" 'edebug-Trace-fast-mode
+   "h"   'evil-backward-char
+   "H"   'edebug-goto-here
+   "n"   'evil-previous-line
+   "N"   'edebug-next-mode)
   :config
   (evil-set-initial-state edebug-mode 'normal)
   (defun lain/edebug-defun ()

@@ -123,6 +123,7 @@ It creates lain-<mode>-map to use with :general keyword"
   "xl"    '(:ignore t :wk "lines")
   "xlj"   'lain/join-lines
   "xls"   'lain/split-lines
+  "x TAB" 'indent-rigidly
   )
 
 (provide 'lain-keybindings)

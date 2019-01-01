@@ -95,7 +95,7 @@
    [remap projectile-find-dir]         #'counsel-projectile-find-dir
    [remap projectile-switch-to-buffer] #'counsel-projectile-switch-to-buffer
    [remap projectile-ripgrep]          #'counsel-projectile-rg
-   [remap projectile-switch-to-buffer] #'counsel-projectile-swtich-to-buffer
+   [remap projectile-switch-to-buffer] #'counsel-projectile-switch-to-buffer
    [remap projectile-switch-project]   #'counsel-projectile-switch-project))
 
 (use-package wgrep

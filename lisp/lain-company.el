@@ -2,7 +2,7 @@
 
 (use-package company
   :diminish
-  :defer .1
+  :defer .5
   :general
   (company-active-map
    "C-t" 'company-select-next
@@ -23,10 +23,6 @@
   (global-company-mode +1))
 
 (use-package company-prescient
-  :ghook 'company-mode-hook
-  :init
-  (setq prescient-save-file (no-littering-expand-var-file-name "prescient.el"))
-  :config
-  (prescient-persist-mode +1))
+  :ghook 'company-mode-hook)
 
 (provide 'lain-company)

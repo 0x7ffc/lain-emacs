@@ -83,6 +83,7 @@
    projectile-enable-caching t
    projectile-sort-order 'recently-active
    projectile-require-project-root t
+   projectile-buffers-filter-function 'projectile-buffers-with-file-or-process
    projectile-kill-buffers-filter 'kill-only-files)
   :config
   (defun lain/projectile-deer ()
@@ -178,7 +179,17 @@
 
 (use-feature vc
   :demand t
+  :general
+  (normal
+   vc-annotate-mode-map
+   "C-t" 'vc-annotate-next-revision
+   "C-n" 'vc-annotate-prev-revision
+   "q"   'quit-window)
+  (lain-leader-map
+   "ga" 'vc-annotate)
   :config
+  (after evil
+    (evil-set-initial-state 'vc-annotate-mode 'normal))
   (remove-hook 'find-file-hook 'vc-find-file-hook)
   (setq vc-handled-backends '(Git)))
 
@@ -224,6 +235,13 @@
     (ibuffer-projectile-set-filter-groups)
     (unless (eq ibuffer-sorting-mode 'alphabetic)
       (ibuffer-do-sort-by-alphabetic))))
+
+(use-package prescient
+  :defer .5
+  :init
+  (setq prescient-save-file (no-littering-expand-var-file-name "prescient.el"))
+  :config
+  (prescient-persist-mode +1))
 
 (use-feature winner
   :commands (winner-undo winner-redo)

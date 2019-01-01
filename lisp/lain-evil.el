@@ -74,6 +74,11 @@
 
 (use-package evil-cleverparens
   :diminish
+  :general
+  (visual
+   evil-cleverparens-mode-map
+   ">" 'evil-shift-right
+   "<" 'evil-shift-left)
   :config
   (lain/dv-keys 'normal 'evil-cleverparens-mode-map
     "l" "M-j" "M-k")

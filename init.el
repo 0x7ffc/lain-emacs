@@ -35,10 +35,12 @@
 Use environment variable `USER_EMACS_DIR' when it's avaliable
 Otherwise it's `/home/$USER/.emacs.d/'")
 
-(setq lain-init-file (expand-file-name "init.el" lain-emacs-dir)
-      lain-lisp-dir (concat lain-emacs-dir "lisp/")
-      lain-personal-dir (concat lain-emacs-dir "personal/")
-      lain-main-file (expand-file-name "lain.el" lain-personal-dir))
+(setq
+ user-emacs-directory lain-emacs-dir
+ lain-init-file (expand-file-name "init.el" lain-emacs-dir)
+ lain-lisp-dir (concat lain-emacs-dir "lisp/")
+ lain-personal-dir (concat lain-emacs-dir "personal/")
+ lain-main-file (expand-file-name "lain.el" lain-personal-dir))
 
 (if (file-exists-p lain-main-file)
     (load-file lain-main-file)

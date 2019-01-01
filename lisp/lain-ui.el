@@ -111,8 +111,10 @@
   :ghook ('after-init-hook 'doom-modeline-init)
   :init
   (setq
+   ;;doom-modeline-height 25
    doom-modeline-major-mode-icon nil
    doom-modeline-bar-width 3
-   doom-modeline-buffer-file-name-style 'relative-to-project))
+   doom-modeline-buffer-file-name-style 'relative-to-project
+   doom-modeline-github nil))
 
 (provide 'lain-ui)
