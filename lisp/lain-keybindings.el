@@ -85,14 +85,16 @@ It creates lain-<mode>-map to use with :general keyword"
   "bt"    'next-buffer
   "bx"    'kill-buffer-and-window
   "e"     '(:ignore t :wk "emacs/elisp")
+  "eI"    'lain/find-lain-main-file
   "eb"    'esup
   "ei"    'lain/find-init-file
-  "eI"    'lain/find-lain-main-file
   "eq"    'save-buffers-kill-terminal
   "eu"    'lain/update
   "f"     '(:ignore t :wk "file")
   "fD"    'lain/delete-current-file
   "fR"    'lain/rename-current-file
+  "fS"    'evil-write-all
+  "fl"    'find-file-literally
   "fs"    'save-buffer
   "g"     '(:ignore t :wk "git")
   "h"     '(:ignore t :wk "help")
@@ -100,7 +102,8 @@ It creates lain-<mode>-map to use with :general keyword"
   "ib"    'lain/insert-page-break
   "in"    'lain/insert-newline-above
   "it"    'lain/insert-newline-below
-  "m"     '(:ignore t :which-key "multiedit")
+  "j"     '(:ignore t :wk "jump")
+  "m"     '(:ignore t :wk "multiedit")
   "n"     '(:ignore t :wk "narrow")
   "nf"    'lain/narrow-to-defun
   "np"    'narrow-to-page
@@ -108,8 +111,8 @@ It creates lain-<mode>-map to use with :general keyword"
   "nw"    'widen
   "p"     '(:ignore t :wk "project")
   "t"     '(:ignore t :wk "toggle/theme")
-  "tF"    'toggle-frame-fullscreen
   "tC"    'lain/cycle-themes
+  "tF"    'toggle-frame-fullscreen
   "u"     'universal-argument
   "w"     '(:ignore t :wk "window")
   "w1"    'delete-other-windows
@@ -119,11 +122,11 @@ It creates lain-<mode>-map to use with :general keyword"
   "wd"    'delete-window
   "wo"    'other-window
   "ws"    'lain/swap-window
+  "x TAB" 'indent-rigidly
   "x"     '(:ignore t :wk "text")
   "xl"    '(:ignore t :wk "lines")
   "xlj"   'lain/join-lines
   "xls"   'lain/split-lines
-  "x TAB" 'indent-rigidly
   )
 
 (provide 'lain-keybindings)

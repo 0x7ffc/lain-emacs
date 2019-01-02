@@ -76,6 +76,7 @@
    "*"   'lain/counsel-rg-at-point
    "fr"  'counsel-recentf
    "ff"  'counsel-find-file
+   "ji"  'counsel-imenu
    "el"  'counsel-find-library
    "hf"  'counsel-describe-function
    "hv"  'counsel-describe-variable

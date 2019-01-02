@@ -50,6 +50,12 @@ Unlike `eval-defun', this does not go to topmost function."
 	(sp-forward-symbol)
 	(call-interactively 'eval-last-sexp)))))
 
+(use-feature ielm
+  :gfhook 'turn-on-smartparens-strict-mode
+  :general
+  (lain-emacs-lisp-mode-map
+   "'" 'ielm))
+
 (use-package macrostep
   :gfhook 'evil-normalize-keymaps
   :general
@@ -87,9 +93,9 @@ Unlike `edebug-defun', this does not go to topmost function."
       (search-backward-regexp "(def")
       (mark-sexp)
       (narrow-to-region (point) (mark))
+      (deactivate-mark)
       (edebug-defun)
       (message "Edebug enabled")
-      (deactivate-mark)
       (widen))))
 
 (use-package indent-guide

@@ -13,7 +13,6 @@
    evil-respect-visual-line-mode t)
   :general
   (lain-leader-map
-   "SPC" 'evil-avy-goto-char-timer
    "wH"  'evil-window-move-far-left
    "wh"  'evil-window-left
    "wT"  'evil-window-move-very-bottom
@@ -24,7 +23,7 @@
    "ws"  'evil-window-right)
   :config
   (lain/dv-keys nil 'motion
-    "j" "J" "k" "l")
+    "j" "J" "k" "l" "gj" "gk")
   (lain/dv-keys nil 'normal
     "l" "J")
   (diminish 'undo-tree-mode)  ;; please remove undo-tree from evil...

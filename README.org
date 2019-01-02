@@ -196,8 +196,8 @@ Some editing notes:
  - =evil-lion= add align text operator, e.g.
    - =glap'= to align current paragraph using ='=
  - =expand-region= is integrated with evil. For example, in the string
-   (hello "foo | oo"):
-   - press =v= the first time it will select "foo"
+   (hello "foo| oo"):
+   - double press =v= it will select "foo"
    - then "\"foo\""
    - then "hello \"foooo\""
    - then the whole expression with the parenthesis.
@@ -210,7 +210,11 @@ Some editing notes:
      line, but when one returns to normal state, by pressing ESC, then
      the typed characters will appear on each line of the
      block/rectangle.
-
+ - ivy is integrated with wgrep, so you can edit your search result:
+   - while searching with counsel-rg/swiper, press =C-c C-o= to run
+     =ivy-occur=, it'll bring up a new buffer with all search result.
+   - then press =w= to enter editable state if you want to edit it,
+     at last press =C-c C-c= to save or =C-c C-k= to abort.
 
 * Details
 
@@ -218,7 +222,11 @@ Some editing notes:
  - [ ] company (? seems hard to manage all the backends, need to investigate more)
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
- - [ ] imenu (imenu-list imenu-everywhere counsel-imenu)
+ - [ ] imenu
+    - custom imenu regular expessoins with different languages
+    - imenu-list
+    - imenu-everywhere
+    - counsel-imenu (? counsel-org-goto)
  - [ ] text folding with evil (? evil-vimish-fold and hideshow)
  - [ ] snippet
  - [ ] org-mode
