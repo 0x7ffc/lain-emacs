@@ -19,6 +19,7 @@
      lain-company
      lain-utils
      lain-emacs-lisp
+     lain-org
      )
    ))
 

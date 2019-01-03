@@ -223,10 +223,10 @@ Some editing notes:
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
  - [ ] imenu
-    - custom imenu regular expessoins with different languages
-    - imenu-list
-    - imenu-everywhere
-    - counsel-imenu (? counsel-org-goto)
+   - custom imenu regular expessoins with different languages
+   - imenu-list
+   - imenu-everywhere
+   - counsel-imenu (? counsel-org-goto)
  - [ ] text folding with evil (? evil-vimish-fold and hideshow)
  - [ ] snippet
  - [ ] org-mode

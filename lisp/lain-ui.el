@@ -124,7 +124,7 @@
   (setq
    shackle-rules
    '((compilation-mode :select nil)
-     (" *undo-tree*" :size 0.25  :align right)
+     (" *undo-tree*" :size 0.25 :align right)
      ("*eshell*" :select t :other t)
      ("*Shell Command Output*" :select nil)
      ("\\*Async Shell.*\\*" :regexp t :ignore t)
@@ -135,7 +135,9 @@
      ("\\*poporg.*\\*" :regexp t :select t :other t)
      ("*Calendar*" :select t :size 0.3 :align below)
      ("*info*" :select t :inhibit-window-quit t :same t)
-     (ivy-occur-grep-mode :select t :align t)
+     (" *Org todo*" :select t :size 0.2 :align below)
+     ("*Pp Eval Output*" :select t :size 0.25 :align below)
+     (ivy-occur-grep-mode :select t :align below)
      (magit-status-mode :select t :inhibit-window-quit t :same t)
      (magit-log-mode :select t :inhibit-window-quit t :same t)
      ))
