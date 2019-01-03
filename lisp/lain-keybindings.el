@@ -21,12 +21,15 @@
   "Just like spacemacs's `spacemacs/set-leader-keys-for-major-mode'
 It creates lain-<mode>-map to use with :general keyword"
   (let ((prefix-map (intern (format "lain-%s-map" mode)))
-	(keymap (or keymap (intern (format "%s-map" mode)))))
-    `(general-define-key
-      :states 'normal
-      :prefix ,lain-major-mode-leader-key
-      :keymaps ',keymap
-      :prefix-map ',prefix-map)))
+	(keymap (or keymap (intern (format "%s-map" mode))))
+	(definer (intern (format "lain-%s-def" mode))))
+    `(progn
+       (general-create-definer ,definer
+	 :states 'normal
+	 :prefix ,lain-major-mode-leader-key
+	 :keymaps ',keymap
+	 :prefix-map ',prefix-map)
+       (,definer))))
 
 (after use-package-core
 

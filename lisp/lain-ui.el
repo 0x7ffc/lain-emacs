@@ -76,8 +76,7 @@
     (add-hook 'evil-visual-state-exit-hook 'hl-line-on-maybe)))
 
 (use-package highlight-parentheses
-  :diminish
-  :ghook 'prog-mode-hook)
+  :diminish)
 
 (use-package rainbow-delimiters
   :general
@@ -85,7 +84,8 @@
    "tr" 'rainbow-delimiters-mode))
 
 (use-package paren-face
-  :ghook 'emacs-lisp-mode-hook)
+  :init
+  (setq paren-face-regexp "[][(){}]"))
 
 (use-package hl-todo
   :ghook

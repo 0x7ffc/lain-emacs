@@ -15,17 +15,23 @@
 (use-feature elisp-mode
   :lain-major-mode emacs-lisp-mode
   :gfhook
-  ('emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
-  ('emacs-lisp-mode-hook 'evil-cleverparens-mode)
+  ('emacs-lisp-mode-hook '(smartparens-strict-mode
+			   evil-cleverparens-mode
+			   highlight-parentheses-mode
+			   paren-face-mode))
   :general
   (lain-emacs-lisp-mode-map
-   "c" 'emacs-lisp-byte-compile
-   "e" 'lain/eval-current-form-sp
-   "s" 'lain/eval-current-symbol-sp
-   "f" 'lain/eval-current-form
-   "F" 'eval-defun
-   "b" 'eval-buffer)
+   "cc" 'emacs-lisp-byte-compile
+   "ee" 'lain/eval-current-form-sp
+   "es" 'lain/eval-current-symbol-sp
+   "ef" 'lain/eval-current-form
+   "eF" 'eval-defun
+   "eb" 'eval-buffer)
   :config
+  (lain-emacs-lisp-mode-def
+    "c" '(:ignore t :wk "compile")
+    "e" '(:ignore t :wk "eval")
+    "d" '(:ignore t :wk "debug"))
   ;; Borrowed from Spacemacs
   (defun lain/eval-current-form ()
     "Find and evaluate the current def* or set* command.
@@ -54,7 +60,12 @@ Unlike `eval-defun', this does not go to topmost function."
   :gfhook 'turn-on-smartparens-strict-mode
   :general
   (lain-emacs-lisp-mode-map
-   "'" 'ielm))
+   "'" 'ielm)
+  ((normal insert)
+   inferior-emacs-lisp-mode-map
+   "C-t" 'comint-next-input
+   "C-n" 'comint-previous-input
+   "C-r" 'comint-history-isearch-backward-regexp))
 
 (use-package macrostep
   :gfhook 'evil-normalize-keymaps
@@ -67,14 +78,14 @@ Unlike `eval-defun', this does not go to topmost function."
    "C-t" 'macrostep-next-macro
    "C-n" 'macrostep-prev-macro)
   (lain-emacs-lisp-mode-map
-   "m" 'macrostep-expand))
+   "em" 'macrostep-expand))
 
 (use-feature edebug
   :gfhook 'evil-normalize-keymaps
   :general
   (lain-emacs-lisp-mode-map
-   "d" 'lain/edebug-defun
-   "D" 'edebug-defun)
+   "dd" 'lain/edebug-defun
+   "dD" 'edebug-defun)
   (edebug-mode-map
    "t"   'evil-next-line
    "T"   'edebug-trace-mode
