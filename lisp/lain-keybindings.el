@@ -15,62 +15,24 @@
 (put 'lain/dv-keys 'lisp-indent-function 'defun)
 
 
-;; Add keyword `:lain-major-mode' to use-package
-
-(defmacro lain/create-major-mode-leader-map (mode &optional keymap)
+(defmacro lain/set-major-mode-leader-keys (mode &rest bindings)
   "Just like spacemacs's `spacemacs/set-leader-keys-for-major-mode'
 It creates lain-<mode>-map to use with :general keyword"
   (let ((prefix-map (intern (format "lain-%s-map" mode)))
-	(keymap (or keymap (intern (format "%s-map" mode))))
-	(definer (intern (format "lain-%s-def" mode))))
-    `(progn
-       (general-create-definer ,definer
-	 :states 'normal
-	 :prefix ,lain-major-mode-leader-key
-	 :keymaps ',keymap
-	 :prefix-map ',prefix-map)
-       (,definer))))
-
-(after use-package-core
-
-  (defun use-package-normalize-lain-major-mode (name label arg &optional recursed)
-    (cond
-     ((not arg)
-      (list (use-package-as-mode name)))
-     ((use-package-non-nil-symbolp arg)
-      (list arg))
-     ((consp arg)
-      (list arg))
-     ((and (not recursed) (listp arg) (listp (cdr arg)))
-      (mapcar #'(lambda (x) (car (use-package-normalize-lain-major-mode
-			     name label x t))) arg))
-     (t
-      (use-package-error
-       (concat label " wants symbol,"
-	       "(symbol symbol) or list of these")))))
-
-  (defun use-package-normalize/:lain-major-mode (name keyword args)
-    (use-package-as-one (symbol-name keyword) args
-      (apply-partially #'use-package-normalize-lain-major-mode name) t))
-
-  (defun use-package-handler/:lain-major-mode (name _keyword arg rest state)
-    (let ((body (use-package-process-keywords name rest state)))
-      (use-package-concat
-       (mapcar #'(lambda (var)
-		   (if (consp var)
-		       `(lain/create-major-mode-leader-map ,(car var) ,(cdr var))
-		     `(lain/create-major-mode-leader-map ,var)))
-	       arg)
-       body)))
-
-  (add-to-list 'use-package-keywords :lain-major-mode t)
-  )
+	(keymap (intern (format "%s-map" mode))))
+    `(general-define-key
+      :states 'normal
+      :prefix ,lain-major-mode-leader-key
+      :keymaps ',keymap
+      :prefix-map ',prefix-map
+      ,@bindings)))
+(put 'lain/set-major-mode-leader-keys 'lisp-indent-function 'defun)
 
 
 ;; Main keybindings
 ;; mostly are bindings without corresponding packages
 
-(general-def insert global
+(general-def 'insert
   [remap newline] 'newline-and-indent)
 
 (lain-leader-def
@@ -116,6 +78,7 @@ It creates lain-<mode>-map to use with :general keyword"
   "t"     '(:ignore t :wk "toggle/theme")
   "tC"    'lain/cycle-themes
   "tF"    'toggle-frame-fullscreen
+  "tc"    'subword-mode
   "u"     'universal-argument
   "w"     '(:ignore t :wk "window")
   "w1"    'delete-other-windows

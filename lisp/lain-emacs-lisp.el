@@ -1,37 +1,26 @@
 ;; lain-emacs-lisp.el -*- lexical-binding: t; -*-
 
-
-;; From Doom Emacs, to defer loading elisp-mode
-(delq 'elisp-mode features)
-(advice-add #'emacs-lisp-mode :before #'defer-elisp-mode)
-(defun defer-elisp-mode (&rest _)
-  (when (and emacs-lisp-mode-hook
-	     (not delay-mode-hooks))
-    (provide 'elisp-mode)
-    (advice-remove #'emacs-lisp-mode #'defer-elisp-mode)))
+(defvar lain-elisp-fns
+  '(smartparens-strict-mode
+    evil-cleverparens-mode
+    highlight-parentheses-mode
+    paren-face-mode)
+  "Functions to run for all elisp modes")
 
-
-;; Main config
 (use-feature elisp-mode
-  :lain-major-mode emacs-lisp-mode
   :gfhook
-  ('emacs-lisp-mode-hook '(smartparens-strict-mode
-			   evil-cleverparens-mode
-			   highlight-parentheses-mode
-			   paren-face-mode))
-  :general
-  (lain-emacs-lisp-mode-map
-   "cc" 'emacs-lisp-byte-compile
-   "ee" 'lain/eval-current-form-sp
-   "es" 'lain/eval-current-symbol-sp
-   "ef" 'lain/eval-current-form
-   "eF" 'eval-defun
-   "eb" 'eval-buffer)
+  ('(emacs-lisp-mode-hook lisp-interaction-mode) lain-elisp-fns)
   :config
-  (lain-emacs-lisp-mode-def
+  (lain/set-major-mode-leader-keys emacs-lisp-mode
     "c" '(:ignore t :wk "compile")
     "e" '(:ignore t :wk "eval")
-    "d" '(:ignore t :wk "debug"))
+    "d" '(:ignore t :wk "debug")
+    "cc" 'emacs-lisp-byte-compile
+    "ee" 'lain/eval-current-form-sp
+    "es" 'lain/eval-current-symbol-sp
+    "ef" 'lain/eval-current-form
+    "eF" 'eval-defun
+    "eb" 'eval-buffer)
   ;; Borrowed from Spacemacs
   (defun lain/eval-current-form ()
     "Find and evaluate the current def* or set* command.

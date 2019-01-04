@@ -8,6 +8,7 @@
  straight-cache-autoloads t
  straight-treat-as-init t
  use-package-always-defer t
+ use-package-expand-minimally t
  use-package-verbose nil
  ;; use-package-compute-statistics t
  ;; use-package-expand-minimally nil
@@ -34,8 +35,6 @@
 (straight-use-package 'use-package)
 (use-package diminish :demand t)
 
-(eval-when-compile
-  (setq use-package-expand-minimally byte-compile-current-file))
 
 (defmacro use-feature (name &rest args)
   "Like `use-package', but with `straight-use-package-by-default' disabled."

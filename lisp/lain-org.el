@@ -48,7 +48,6 @@ Inserted by installing org-mode or when a release is made."
 
 (use-package org
   :straight org-plus-contrib
-  :lain-major-mode
   :gfhook
   'auto-fill-mode
   'lain/config-org

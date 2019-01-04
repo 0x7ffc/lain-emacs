@@ -50,8 +50,7 @@
   'prog-mode-hook
   'text-mode-hook
   :if (or (boundp 'mac-auto-operator-composition-mode)
-	  (s-equals? "Fira Code"
-		     (alist-get 'font default-frame-alist))))
+	  (s-equals? "Fira Code" (car lain-font))))
 
 ;; Enable evil-mode's code folding feature: `zm' `zr'
 (use-feature hideshow
