@@ -11,9 +11,6 @@
     (ample-theme
      . (ample-light
 	ample-flat))
-    (spacemacs-theme
-     . (spacemacs-light
-	spacemacs-dark))
     (solarized-theme
      . (solarized-light
 	solarized-dark))
@@ -145,7 +142,7 @@
 	base16-zenburn)))
   "alist of packages and its themes")
 
-(defvar lain--current-theme nil
+(defvar lain-current-theme nil
   "Internal variable storing currently loaded theme.")
 
 (defun lain/load-theme (name)
@@ -153,13 +150,13 @@
   (let ((pkg (car (--first
 		   (-contains? (cdr it) name)
 		   lain-packages-with-themes))))
+    (setq-default lain-current-theme name)
     (if (null pkg)
 	(message "There in no theme named: %s" name)
       (eval `(use-package ,pkg
 	       :demand t
 	       :config
-	       (load-theme ',name t)
-	       (setq-default lain--current-theme ',name))))))
+	       (load-theme ',name t))))))
 
 (lain/load-theme (car lain-themes))
 
@@ -169,9 +166,10 @@
 When BACKWARD is non-nil, cycle backwards."
   (interactive "P")
   (let* ((themes (if backward (reverse lain-themes) lain-themes))
-	 (next-theme (car (or (cdr (memq lain--current-theme themes))
+	 (next-theme (car (or (cdr (memq lain-current-theme themes))
 			      themes))))
-    (disable-theme lain--current-theme)
-    (lain/load-theme next-theme)))
+    (disable-theme lain-current-theme)
+    (lain/load-theme next-theme)
+    (message "Load Theme: %s" next-theme)))
 
 (provide 'lain-theme)
