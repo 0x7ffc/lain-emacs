@@ -57,6 +57,7 @@ Otherwise it's `/home/$USER/.emacs.d/'")
 (require 'lain-keybindings)
 (require 'lain-ui)
 (require 'lain-theme)
+(require 'lain-font)
 (require 'lain-evil)
 (require 'lain-ivy)
 

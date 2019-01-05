@@ -9,6 +9,7 @@
 	       ;;:size 14
 	       :weight normal
 	       :width normal)
+   lain-use-ligature t
    lain-leader-key "SPC"
    lain-emacs-leader-key "C-c"
    lain-major-mode-leader-key ","

@@ -93,6 +93,7 @@ It creates lain-<mode>-map to use with :general keyword"
   "xl"    '(:ignore t :wk "lines")
   "xlj"   'lain/join-lines
   "xls"   'lain/split-lines
+  "xld"   'delete-matching-lines
   )
 
 (provide 'lain-keybindings)

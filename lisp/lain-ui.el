@@ -32,25 +32,8 @@
  initial-scratch-message nil
  )
 
-(defun lain/set-default-font (font)
-  (when (find-font (font-spec :name (car font)))
-    (let* ((font-name (car font))
-	   (props (cdr font))
-	   (fontspec (apply 'font-spec :name font-name props)))
-      (add-to-list 'default-frame-alist
-		   (cons 'font (font-xlfd-name fontspec))))))
-(lain/set-default-font lain-font)
-
 (when lain-fullscreen-at-startup
   (add-to-list 'default-frame-alist '(fullscreen . fullboth)))
-
-(use-feature lain-fira-code
-  :diminish
-  :ghook
-  'prog-mode-hook
-  'text-mode-hook
-  :if (or (boundp 'mac-auto-operator-composition-mode)
-	  (s-equals? "Fira Code" (car lain-font))))
 
 ;; Enable evil-mode's code folding feature: `zm' `zr'
 (use-feature hideshow
