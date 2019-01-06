@@ -5,6 +5,10 @@
      . (zenburn))
     (srcery-theme
      . (srcery))
+    (monokai-theme
+     . (monokai))
+    (darktooth-theme
+     . (darktooth))
     (leuven-theme
      . (leuven
 	leuven-dark))
@@ -17,28 +21,35 @@
     (tao-theme
      . (tao-yin
 	tao-yang))
+    (moe-theme
+     . (moe-dark
+	moe-light))
+    (gruvbox-theme
+     . (gruvbox-dark-medium
+	gruvbox-dark-soft
+	gruvbox-dark-hard
+	gruvbox-light-medium
+	gruvbox-light-soft
+	gruvbox-light-hard))
     (doom-themes
-     . (doom-challenger-deep
+     . (doom-one
+	doom-one-light
+	doom-vibrant
 	doom-city-lights
 	doom-dracula
+	doom-Iosvkem
 	doom-molokai
-	doom-mono-dark
-	doom-mono-light
 	doom-nord
 	doom-nord-light
-	doom-nova
-	doom-one
-	doom-one-light
 	doom-opera
 	doom-opera-light
+	doom-nova
 	doom-peacock
-	doom-spacegrey
 	doom-solarized-light
-	doom-tomorrow-day
+	doom-sourcerer
+	doom-spacegrey
 	doom-tomorrow-night
-	doom-tron
-	doom-vibrant
-	doom-xbase16-3024))
+	doom-tomorrow-day))
     (base16-theme
      . (base16-3024
 	base16-apathy
@@ -88,13 +99,6 @@
 	base16-grayscale-dark
 	base16-grayscale-light
 	base16-greenscreen
-	base16-gruvbox-dark-hard
-	base16-gruvbox-dark-medium
-	base16-gruvbox-dark-pale
-	base16-gruvbox-dark-soft
-	base16-gruvbox-light-hard
-	base16-gruvbox-light-medium
-	base16-gruvbox-light-soft
 	base16-harmonic-dark
 	base16-harmonic-light
 	base16-hopscotch
@@ -111,7 +115,6 @@
 	base16-mellow-purple
 	base16-mexico-light
 	base16-mocha
-	base16-monokai
 	base16-nord
 	base16-ocean
 	base16-oceanicnext
@@ -128,8 +131,6 @@
 	base16-seti-ui
 	base16-shapeshifter
 	base16-solarflare
-	base16-solarized-dark
-	base16-solarized-light
 	base16-spacemacs
 	base16-summerfruit-dark
 	base16-tomorrow
@@ -138,13 +139,14 @@
 	base16-unikitty-dark
 	base16-unikitty-light
 	base16-woodland
-	base16-xcode-dusk
-	base16-zenburn)))
+	base16-xcode-dusk)))
   "alist of packages and its themes")
 
+;;;###autoload
 (defvar lain-current-theme nil
   "Internal variable storing currently loaded theme.")
 
+;;;###autoload
 (defun lain/load-theme (name)
   "Load theme with its corresponding package using `use-package'"
   (let ((pkg (car (--first
@@ -158,8 +160,6 @@
 	       :config
 	       (load-theme ',name t))))))
 
-(lain/load-theme (car lain-themes))
-
 ;;;###autoload
 (defun lain/cycle-themes (&optional backward)
   "Cycle through themes defined in `lain-themes.'
@@ -171,5 +171,8 @@ When BACKWARD is non-nil, cycle backwards."
     (disable-theme lain-current-theme)
     (lain/load-theme next-theme)
     (message "Load Theme: %s" next-theme)))
+
+(general-add-hook 'after-init-hook
+		  (lambda () (lain/load-theme (car lain-themes))))
 
 (provide 'lain-theme)

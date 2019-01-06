@@ -276,45 +276,6 @@
   'eval-expression-minibuffer-setup-hook
   'ielm-mode-hook)
 
-(use-feature tramp
-  :demand t
-  :general
-  (lain-leader-map
-   "fE"    'lain/sudo-this-file
-   "f C-e" 'lain/sudo-find-file)
-  :init
-  (setq tramp-default-method "ssh")
-  :config
-  ;; from magnars
-  (defun lain/sudo-find-file (file)
-    (interactive
-     (list (read-file-name "Open as root: ")))
-    (when (f-writable-p file)
-      (user-error "File is already writeable!"))
-    (find-file
-     (if (not (tramp-tramp-file-p file))
-	 (concat "/sudo:root@localhost:" file)
-       (with-parsed-tramp-file-name file parsed
-	 (when (equal parsed-user "root")
-	   (error "Already root!"))
-	 (let* ((new-hop (tramp-make-tramp-file-name parsed-method
-						     parsed-user
-						     parsed-host
-						     nil
-						     parsed-hop
-						     ))
-		(new-hop (substring new-hop 1 -1))
-		(new-hop (concat new-hop "|"))
-		(new-file (tramp-make-tramp-file-name "sudo"
-						      "root"
-						      parsed-host
-						      parsed-localname
-						      new-hop)))
-	   new-file)))))
-  (defun lain/sudo-this-file ()
-    (interactive)
-    (lain/sudo-find-file (f-canonical (buffer-file-name)))))
-
 (use-package help-fns+
   :general
   (lain-leader-map

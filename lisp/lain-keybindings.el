@@ -59,6 +59,8 @@ It creates lain-<mode>-map to use with :general keyword"
   "fD"    'lain/delete-current-file
   "fR"    'lain/rename-current-file
   "fS"    'evil-write-all
+  "fE"    'lain/sudo-this-file
+  "f C-e" 'lain/sudo-find-file
   "fl"    'find-file-literally
   "fs"    'save-buffer
   "g"     '(:ignore t :wk "git")

@@ -117,6 +117,39 @@ If the universal prefix argument then don't kill specail buffer."
 	(message "Successfully renamed %s to %s" file new-name)))))
 
 ;;;###autoload
+(defun lain/sudo-find-file (file)
+  (interactive
+   (list (read-file-name "Open as root: ")))
+  (when (f-writable-p file)
+    (user-error "File is already writeable!"))
+  (require 'tramp)
+  (find-file
+   (if (not (tramp-tramp-file-p file))
+       (concat "/sudo:root@localhost:" file)
+     (with-parsed-tramp-file-name file parsed
+       (when (equal parsed-user "root")
+	 (error "Already root!"))
+       (let* ((new-hop (tramp-make-tramp-file-name parsed-method
+						   parsed-user
+						   parsed-host
+						   nil
+						   parsed-hop
+						   ))
+	      (new-hop (substring new-hop 1 -1))
+	      (new-hop (concat new-hop "|"))
+	      (new-file (tramp-make-tramp-file-name "sudo"
+						    "root"
+						    parsed-host
+						    parsed-localname
+						    new-hop)))
+	 new-file)))))
+
+;;;###autoload
+(defun lain/sudo-this-file ()
+  (interactive)
+  (lain/sudo-find-file (f-canonical (buffer-file-name))))
+
+;;;###autoload
 (defun lain/insert-newline-above ()
   "Insert a newline above current line, and don't move cursor"
   (interactive)
