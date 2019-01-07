@@ -27,7 +27,11 @@
   (lain/dv-keys nil 'normal
     "l" "J")
   (diminish 'undo-tree-mode)  ;; please remove undo-tree from evil...
-  (evil-mode 1))
+  (evil-mode 1)
+  (defun lain/evil-escape (&rest _)
+    (when (called-interactively-p 'any)
+      (call-interactively #'lain/escape)))
+  (advice-add 'evil-force-normal-state :after #'lain/evil-escape))
 
 (use-package evil-surround
   :demand t

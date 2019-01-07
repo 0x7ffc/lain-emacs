@@ -1,5 +1,8 @@
 ;; init.el -*- lexical-binding: t; -*-
 
+(when (version< emacs-version "26")
+  (error "Lain requires GNU Emacs 26 or newer, but you're running %s" emacs-version))
+
 ;; SPEEEEED!!
 
 (defvar file-name-handler-alist-old file-name-handler-alist)

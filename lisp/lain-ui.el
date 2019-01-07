@@ -21,7 +21,6 @@
  enable-recursive-minibuffers t
  eval-expression-print-length nil
  eval-expression-print-level nil
- help-window-select 't
  inhibit-default-init t
  inhibit-startup-screen t
  inhibit-startup-message t
@@ -99,32 +98,6 @@
    doom-modeline-buffer-file-name-style 'relative-to-project
    doom-modeline-minor-modes t
    doom-modeline-github nil))
-
-(use-package shackle
-  :defer .5
-  :init
-  (setq
-   shackle-rules
-   '((compilation-mode :select nil)
-     (" *undo-tree*" :size 0.25 :align right)
-     ("*eshell*" :select t :other t)
-     ("*Shell Command Output*" :select nil)
-     ("\\*Async Shell.*\\*" :regexp t :ignore t)
-     ("*Help*" :select t :other t)
-     ("*Completions*" :size 0.3 :align t)
-     ("*Messages*" :select nil :other t)
-     ("\\*[Wo]*Man.*\\*" :regexp t :select t :other t)
-     ("\\*poporg.*\\*" :regexp t :select t :other t)
-     ("*Calendar*" :select t :size 0.3 :align below)
-     ("*info*" :select t :inhibit-window-quit t :same t)
-     (" *Org todo*" :select t :size 0.2 :align below)
-     ("*Pp Eval Output*" :select t :size 0.25 :align below)
-     (ivy-occur-grep-mode :select t :align below)
-     (magit-status-mode :select t :inhibit-window-quit t :same t)
-     (magit-log-mode :select t :inhibit-window-quit t :same t)
-     ))
-  :config
-  (shackle-mode +1))
 
 (use-package writeroom-mode
   :general

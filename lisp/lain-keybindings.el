@@ -32,8 +32,19 @@ It creates lain-<mode>-map to use with :general keyword"
 ;; Main keybindings
 ;; mostly are bindings without corresponding packages
 
-(general-def 'insert
-  [remap newline] 'newline-and-indent)
+(defvar lain-escape-hook nil)
+
+;;;###autoload
+(defun lain/escape ()
+  (interactive)
+  (cond ((minibuffer-window-active-p (minibuffer-window))
+	 (abort-recursive-edit))
+	((cl-find-if #'funcall lain-escape-hook))
+	((keyboard-quit))))
+
+(general-def
+  [remap newline]       'newline-and-indent
+  [remap keyboard-quit] 'lain/escape)
 
 (lain-leader-def
   "TAB"   'lain/other-buffer
@@ -46,7 +57,8 @@ It creates lain-<mode>-map to use with :general keyword"
   "bd"    'kill-current-buffer
   "bm"    'lain/switch-to-message-buffer
   "bn"    'previous-buffer
-  "bs"    'lain/switch-to-scratch-buffer
+  "bs"    'save-buffer
+  "bS"    'lain/switch-to-scratch-buffer
   "bt"    'next-buffer
   "bx"    'kill-buffer-and-window
   "e"     '(:ignore t :wk "emacs/elisp")
@@ -62,7 +74,6 @@ It creates lain-<mode>-map to use with :general keyword"
   "fE"    'lain/sudo-this-file
   "f C-e" 'lain/sudo-find-file
   "fl"    'find-file-literally
-  "fs"    'save-buffer
   "g"     '(:ignore t :wk "git")
   "h"     '(:ignore t :wk "help")
   "i"     '(:ignore t :wk "insert")

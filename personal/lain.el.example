@@ -3,7 +3,9 @@
 (defun lain/init ()
   (setq-default
    ;; Use `SPC t C' to cycle through themes
-   lain-themes '(zenburn
+   ;; See `lain-theme.el' for list of themes to use.
+   lain-themes '(doom-peacock
+		 zenburn
 		 base16-ocean)
    lain-font '("Fira Code"
 	       ;;:size 14
@@ -20,7 +22,9 @@
      lain-company
      lain-utils
      lain-emacs-lisp
-     lain-org
+     ;; lain-org
+     ;; lain-clojure
+     ;; lain-popup
      )
    ))
 

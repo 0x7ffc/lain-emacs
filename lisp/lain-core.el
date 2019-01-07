@@ -42,11 +42,11 @@
   :config
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
 
-(use-package exec-path-from-shell
-  :demand t
-  :if (memq window-system '(mac ns))
-  :config
-  (exec-path-from-shell-initialize))
+(when (memq window-system '(mac ns))
+  (use-package exec-path-from-shell
+    :demand t
+    :config
+    (exec-path-from-shell-initialize)))
 
 (use-package which-key
   :defer .1
@@ -252,6 +252,7 @@
   (prescient-persist-mode +1))
 
 (use-feature winner
+  :defer .5
   :commands (winner-undo winner-redo)
   :preface (defvar winner-dont-bind-my-keys t)
   :general
