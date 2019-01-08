@@ -37,11 +37,13 @@
 (defvar lain-popup-alist-default
   (list :actions '(display-buffer-reuse-window display-buffer-in-side-window)
 	:side 'bottom
-	:width 40
-	:height 0.25
+	:size 0.25
 	:slot 0
-	:reusable-frames 'visible
-	:popup t
+	:reusable-frames 'visible))
+
+;;;###autoload
+(defvar lain-popup-params-defalut
+  (list :popup t
 	:quit t
 	:select nil
 	:modeline 'none
@@ -83,6 +85,14 @@
     (lain/popup-close-all)))
 
 ;;;###autoload
+(defun lain/popup-raise (window)
+  (interactive (list (selected-window)))
+  (unless (lain/popup-window-p window)
+    (user-error "Can't raise a non-popup window"))
+  (lain/popup-close window t)
+  (display-buffer-pop-up-window (current-buffer) nil))
+
+;;;###autoload
 (defun lain/popup-main (buffer &optional alist)
   (interactive)
   (-let* ((origin (selected-window))
@@ -91,32 +101,46 @@
 			  if (funcall func buffer alist)
 			  return it)))
     (set-window-dedicated-p popup 'popup)
-    (select-window (if (window-parameter popup 'select) popup origin))
+    (let ((select (window-parameter popup 'select)))
+      (if (functionp select)
+	  (funcall select popup origin)
+	(select-window (if select popup origin))))
     popup))
 
 ;;;###autoload
-(defun lain/make-rule (rule)
+(defun lain/popup-make-rule (rule)
   (-let* (((pred . plist) rule)
-	  ((&plist :actions :side :height :width :slot
-		   :quit :select :modeline) plist)
-	  ((&plist :actions daction :side dside
-		   :height dheight :width dwidth
-		   :slot dslot :reusable-frames dreusable-frames
-		   :quit dquit :select dselect :popup dpopup
-		   :modeline dmodeline :no-other-window dno-other-window) lain-popup-alist-default)
+	  (alist-keys
+	   (-filter 'keywordp lain-popup-alist-default))
+	  (params-keys
+	   (-filter 'keywordp lain-popup-params-defalut))
+	  (choose
+	   (lambda (key default)
+	     (if (plist-member plist key)
+		 (plist-get plist key)
+	       (plist-get default key))))
 	  (alist
-	   `((actions . ,(or actions daction))
-	     (side . ,(or side dside))
-	     (window-height . ,(or height dheight))
-	     (window-width . ,(or width dwidth))
-	     (slot . ,(or slot dslot))
-	     (reusable-frames . ,dreusable-frames)))
+	   (--map (cons (intern (s-chop-prefix ":" (symbol-name it)))
+			(funcall choose it lain-popup-alist-default))
+		  (remove :size alist-keys)))
+	  (alist
+	   (cons (cons (if (memq (alist-get 'side alist) '(left right))
+			   'window-width
+			 'window-height)
+		       (funcall choose :size lain-popup-alist-default))
+		 alist))
 	  (params
-	   `((quit . ,(or quit dquit))
-	     (select . ,(or select dselect))
-	     (popup . ,dpopup)
-	     (mode-line-format . ,(or modeline dmodeline))
-	     (no-other-window . ,dno-other-window))))
+	   (--map (cons (intern (s-chop-prefix ":" (symbol-name it)))
+			(funcall choose it lain-popup-params-defalut))
+		  (remove :modeline params-keys)))
+	  (params
+	   (cons (cons 'mode-line-format
+		       (if (plist-member plist :modeline)
+			   (if (plist-get plist :modeline)
+			       nil
+			     'none)
+			 (plist-get lain-popup-params-defalut :modeline)))
+		 params)))
     `(,pred (lain/popup-main)
 	    ,@alist
 	    (window-parameters ,@params))))
@@ -127,12 +151,42 @@
   (setq display-buffer-alist
 	(let ((-compare-fn (-lambda (a b) (equal (car a) (car b)))))
 	  (-union display-buffer-alist
-		  (-map 'lain/make-rule rules)))))
+		  (-map 'lain/popup-make-rule rules)))))
+
+
+;; Defalut rules
+;; options:
+;;   modeline: t/nil, default nil
+;;   select: t/nil/function, default nil
+;;   quit: t/nil, default t
+;;   side: top/bottom/left/right, default bottom
+;;   size: number/function, default 0.25
 
 (lain/set-popup-rules
-  '("^\\*[Hh]elp" :slot 0 :size 0.35 :select t))
+  '("^\\*[Hh]elp" :size 0.35 :select t)
+  '("^\\*info\\*$" :size 0.45 :select t)
+  '("^\\*Backtrace" :size 0.35 :quit nil)
+  '("^ \\*undo-tree\\*" :slot 2 :side right :select t)
+  '("^\\*Pp Eval" :size shrink-window-if-larger-than-buffer :select ignore)
+  '("^\\* Regexp Explain \\*$" :size shrink-window-if-larger-than-buffer))
 
 (add-hook 'after-init-hook
 	  (lambda () (add-hook 'lain-escape-hook #'lain/popup-close-on-escape t)))
+
+(general-def
+  "C-c C-p"  '(:ignore t :wk "Popup")
+  "C-c C-p d" 'lain/popup-close-all
+  "C-c C-p r" 'lain/popup-raise)
+
+
+;; Hacks
+
+;; Info
+(defun lain/popup-info-hack (&rest _)
+  (when-let* ((win (get-buffer-window "*info*"))
+	      (select (window-parameter win 'select))
+	      (popup-p (lain/popup-window-p win)))
+    (select-window win)))
+(advice-add #'info-lookup-symbol :after #'lain/popup-info-hack)
 
 (provide 'lain-popup)

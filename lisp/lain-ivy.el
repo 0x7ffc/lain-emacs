@@ -4,8 +4,6 @@
   :diminish
   :general
   ([remap switch-to-buffer] 'ivy-switch-buffer)
-  (ivy-mode-map
-   "<escape>" 'minibuffer-keyboard-quit)
   (ivy-minibuffer-map
    "C-s"   'ivy-alt-done
    "C-M-s" 'ivy-immediate-done

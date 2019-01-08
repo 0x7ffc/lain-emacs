@@ -27,6 +27,9 @@
   ('clojure-mode-hook lain-clojure-fns)
   :config
   (lain/set-clojure-leader-keys
+    "s"  '(:ignore t :wk "repl")
+    "sj" 'cider-jack-in
+    "sJ" 'cider-jack-in-clojurescript
     "r" '(:ignore t :wk "refactor")
     "ri" 'clojure-cycle-if
     "rp" 'clojure-cycle-privacy
@@ -55,7 +58,7 @@
    cider-repl-mode-map
    "C-t" 'cider-repl-next-input
    "C-n" 'cider-repl-previous-input)
-  :init
+  :config
   (setq
    nrepl-hide-special-buffers t
    nrepl-log-messages nil
@@ -118,8 +121,6 @@
 
     "sc" (if (eq mode 'cider-repl-mode) 'cider-repl-clear-buffer 'cider-connect)
     "sC" 'cider-find-and-clear-repl-output
-    "sj" 'cider-jack-in
-    "sJ" 'cider-jack-in-clojurescript
     "so" 'cider-repl-switch-to-other
     "sq" 'cider-quit
     "sr" 'cider-ns-refresh
@@ -141,7 +142,6 @@
     "pS" 'cider-profile-summary
     "pt" 'cider-profile-toggle
     "pv" 'cider-profile-var-profiled-p)
-  :config
   (defadvice cider-last-sexp (around evil activate)
     "In normal-state or motion-state, last sexp ends at point."
     (if (and (not evil-move-beyond-eol)

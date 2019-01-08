@@ -282,4 +282,6 @@
   (lain-leader-map
    "hK" 'describe-keymap))
 
+(use-package pcre2el)
+
 (provide 'lain-core)
