@@ -102,6 +102,44 @@
 (use-package writeroom-mode
   :general
   (lain-leader-map
-   "tw" 'writeroom-mode))
+   "tw" 'writeroom-mode)
+  :init
+  (setq
+   writeroom-extra-line-spacing 5
+   writeroom-width 0.5))
+
+(use-package focus
+  :general
+  (lain-leader-map
+   "tx" 'focus-mode
+   "tX" 'focus-read-only-mode))
+
+(use-package centered-cursor-mode
+  :general
+  (lain-leader-map
+   "t-" 'centered-cursor-mode)
+  :config
+  (setq
+   ccm-recenter-at-end-of-file t
+   ccm-ignored-commands
+   '(mouse-drag-region
+     mouse-set-point
+     widget-button-click
+     scroll-bar-toolkit-scroll
+     evil-mouse-drag-region)))
+
+(define-minor-mode lain-zen-mode
+  :init-value nil :lighter " Z" :global nil
+  (cond
+   (lain-zen-mode
+    (centered-cursor-mode +1)
+    (writeroom-mode +1)
+    (focus-mode +1)
+    (hl-line-mode -1))
+   (t
+    (centered-cursor-mode -1)
+    (writeroom-mode -1)
+    (focus-mode -1)
+    (hl-line-mode +1))))
 
 (provide 'lain-ui)

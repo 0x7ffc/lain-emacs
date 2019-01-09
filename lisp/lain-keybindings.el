@@ -92,7 +92,8 @@ It creates lain-<mode>-map to use with :general keyword"
   "t"     '(:ignore t :wk "toggle/theme")
   "tC"    'lain/cycle-themes
   "tF"    'toggle-frame-fullscreen
-  "tc"    'subword-mode
+  "ts"    'subword-mode
+  "tz"    'lain-zen-mode
   "u"     'universal-argument
   "w"     '(:ignore t :wk "window")
   "w1"    'delete-other-windows
