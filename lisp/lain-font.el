@@ -62,7 +62,7 @@ correct width of the symbols instead of the width measured by `char-width'."
     (lain/correct-symbol-bounds
      (lain/ligature-list lain-fira-code-ligatures lain-ligatures-startpoint))))
 
-(when (bound-and-true-p lain-use-ligature)
+(when (bound-and-true-p lain-current-ligature-alist)
   (defun lain/setup-ligatures ()
     (setq-local prettify-symbols-alist
 		(-union prettify-symbols-alist lain-current-ligature-alist))
