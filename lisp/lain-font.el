@@ -11,6 +11,11 @@
 		   (cons 'font (font-xlfd-name fontspec))))))
 (lain/set-default-font lain-font)
 
+(defun lain/set-line-spacing ()
+  (setq-local default-text-properties lain-text-properties))
+(general-add-hook '(prog-mode-hook text-mode-hook)
+		  'lain/set-line-spacing)
+
 
 ;; Prettify symbols
 ;; Support fonts:

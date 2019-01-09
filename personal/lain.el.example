@@ -11,6 +11,7 @@
 	       ;;:size 14
 	       :weight normal
 	       :width normal)
+   lain-text-properties '(line-spacing 2 line-height 1.0)
    lain-leader-key "SPC"
    lain-emacs-leader-key "C-c"
    lain-major-mode-leader-key ","

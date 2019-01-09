@@ -168,7 +168,8 @@
   '("^\\*Backtrace" :size 0.35 :quit nil)
   '("^ \\*undo-tree\\*" :slot 2 :side right :select t)
   '("^\\*Pp Eval" :size shrink-window-if-larger-than-buffer :select ignore)
-  '("^\\* Regexp Explain \\*$" :size shrink-window-if-larger-than-buffer))
+  '("^\\* Regexp Explain \\*$" :size shrink-window-if-larger-than-buffer)
+  '("^\\*xref\\*$" :size 0.2 :select ignore))
 
 (add-hook 'after-init-hook
 	  (lambda () (add-hook 'lain-escape-hook #'lain/popup-close-on-escape t)))

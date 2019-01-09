@@ -14,7 +14,7 @@ Journey of me writing modern(?) day =.emacs.d= using:
 - [[#my-journey][My Journey]]
 - [[#the-workflow][The Workflow]]
 - [[#details][Details]]
-  - [[#tasks-3547][TASKS]]
+  - [[#tasks-3548][TASKS]]
   - [[#how-to-use][How to Use]]
   - [[#note-about-speed][Note about SPEED]]
   - [[#external-programs][External Programs]]
@@ -218,7 +218,7 @@ Some editing notes:
 
 * Details
 
-** TODO TASKS [35/47]
+** TODO TASKS [35/48]
  - [ ] company (? seems hard to manage all the backends, need to investigate more)
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
@@ -228,6 +228,7 @@ Some editing notes:
    - imenu-everywhere
    - counsel-imenu (? counsel-org-goto)
  - [ ] text folding with evil (? evil-vimish-fold and hideshow)
+ - [ ] ediff (? magit)
  - [ ] snippet
  - [ ] custom dashboard (? maybe)
  - [ ] org-mode

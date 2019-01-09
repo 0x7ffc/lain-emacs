@@ -62,6 +62,8 @@
    which-key-idle-delay 0.3
    which-key-enable-extended-define-key t)
   :config
+  (add-hook 'which-key-init-buffer-hook
+	    (lambda () (setq-local line-spacing 3)) t)
   (which-key-mode +1))
 
 (use-package projectile
