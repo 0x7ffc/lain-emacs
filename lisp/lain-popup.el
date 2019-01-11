@@ -169,7 +169,8 @@
   '("^ \\*undo-tree\\*" :slot 2 :side right :select t)
   '("^\\*Pp Eval" :size shrink-window-if-larger-than-buffer :select ignore)
   '("^\\* Regexp Explain \\*$" :size shrink-window-if-larger-than-buffer)
-  '("^\\*xref\\*$" :size 0.2 :select ignore))
+  '("^\\*xref\\*$" :size 0.2 :select ignore)
+  '("^\\*Async Shell Command\\*" :size 0.5 :select t))
 
 (add-hook 'after-init-hook
 	  (lambda () (add-hook 'lain-escape-hook #'lain/popup-close-on-escape t)))

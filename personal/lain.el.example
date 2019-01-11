@@ -25,6 +25,7 @@
      ;; lain-org
      ;; lain-clojure
      ;; lain-popup
+     ;; lain-leetcode
      )
    ))
 
