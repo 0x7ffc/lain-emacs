@@ -106,7 +106,9 @@
   :init
   (setq
    writeroom-extra-line-spacing 5
-   writeroom-width 0.5))
+   writeroom-width 0.5)
+  ;; https://github.com/joostkremers/writeroom-mode/issues/48
+  (advice-add 'writeroom--calculate-width :before #'redisplay))
 
 (use-package focus
   :general
