@@ -85,7 +85,11 @@
     (interactive)
     (require 'projectile)
     (counsel-rg (lain/symbol-at-point)
-		(projectile-ensure-project (projectile-project-root)))))
+		(projectile-ensure-project (projectile-project-root))))
+  (setq
+   counsel-describe-function-function #'helpful-callable
+   counsel-describe-variable-function #'helpful-variable)
+  (lain/set-popup-rules '("^\\*ivy-occur" :size 0.35 :quit nil)))
 
 (use-package counsel-projectile
   :after projectile

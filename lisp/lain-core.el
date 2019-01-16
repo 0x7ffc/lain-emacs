@@ -286,4 +286,12 @@
 
 (use-package pcre2el)
 
+(use-package helpful
+  :defer .5
+  :general
+  ([remap describe-key]      'helpful-key
+   [remap describe-variable] 'helpful-variable
+   [remap describe-command]  'helpful-command
+   [remap describe-function] 'helpful-function))
+
 (provide 'lain-core)
