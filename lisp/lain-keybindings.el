@@ -44,8 +44,7 @@ It creates lain-<mode>-map to use with :general keyword"
 
 (general-def
   [remap newline]       'newline-and-indent
-  [remap keyboard-quit] 'lain/escape
-  "<escape>"            'lain/escape)
+  [remap keyboard-quit] 'lain/escape)
 
 (lain-leader-def
   "TAB"   'lain/other-buffer

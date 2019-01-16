@@ -5,6 +5,10 @@
   :defer .5
   :general
   (company-active-map
+   "TAB" 'company-complete-selection
+   "<tab>" 'company-complete-selection
+   "RET" 'nil
+   [return] 'nil
    "C-t" 'company-select-next
    "C-n" 'company-select-previous
    "C-u" 'company-previous-page
@@ -18,7 +22,16 @@
    company-minimum-prefix-length 2
    company-dabbrev-code-other-buffers t
    company-dabbrev-ignore-case nil
-   company-dabbrev-downcase nil)
+   company-dabbrev-downcase nil
+   company-backends '((company-capf company-files company-dabbrev-code))
+   company-frontends
+   '(company-pseudo-tooltip-frontend
+     company-echo-metadata-frontend))
+  (defun lain/set-company-backend (mode backend)
+    (add-hook (intern (format "%s-hook" mode))
+	      (lambda ()
+		(set (make-local-variable 'company-backends)
+		     (append backend (default-value 'company-backends))))))
   :config
   (global-company-mode +1))
 

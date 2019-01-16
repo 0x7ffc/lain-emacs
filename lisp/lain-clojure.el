@@ -26,6 +26,9 @@
   :gfhook
   ('clojure-mode-hook lain-clojure-fns)
   :config
+  (lain/set-popup-rules
+    '("^\\*cider-repl" :quit nil :select t)
+    '("^\\*cider-repl-history" :side right :slot 2))
   (lain/set-clojure-leader-keys
     "s"  '(:ignore t :wk "repl")
     "sj" 'cider-jack-in

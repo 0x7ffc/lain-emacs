@@ -26,6 +26,8 @@
     "j" "J" "k" "l" "gj" "gk")
   (lain/dv-keys nil 'normal
     "l" "J")
+  (lain/dv-keys nil 'global
+    "C-j")
   (diminish 'undo-tree-mode)  ;; please remove undo-tree from evil...
   (evil-mode 1)
   (defun lain/evil-escape (&rest _)
