@@ -2,8 +2,7 @@
 
 ;; Dvorak: "hjkl" => "htns"
 (use-package evil
-  :gfhook ('evil-insert-state-exit-hook #'lain/save-file)
-  :defer .1  ;; we want evil but we also want SPEED...
+  :defer .1 ;; we want evil but we also want SPEED...
   :init
   (setq
    evil-ex-visual-char-range t
@@ -33,7 +32,8 @@
   (defun lain/evil-escape (&rest _)
     (when (called-interactively-p 'any)
       (call-interactively #'lain/escape)))
-  (advice-add 'evil-force-normal-state :after #'lain/evil-escape))
+  (add-hook 'lain-escape-hook #'lain/save-file)
+  (general-add-advice '(evil-normal-state evil-force-normal-state) :after #'lain/evil-escape))
 
 (use-package evil-surround
   :demand t
@@ -75,6 +75,7 @@
    evil-escape-excluded-states '(normal visual emacs motion multiedit)
    evil-escape-key-sequence "tn")
   :config
+  (advice-add 'evil-escape :after #'lain/escape)
   (evil-escape-mode +1))
 
 (use-package evil-cleverparens
