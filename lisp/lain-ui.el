@@ -144,4 +144,24 @@
     (focus-mode -1)
     (hl-line-mode +1))))
 
+(use-package git-gutter-fringe
+  :diminish (git-gutter-mode . "")
+  :defer .1
+  :when (display-graphic-p)
+  :ghook
+  ('(prog-mode-hook text-mode-hook) 'git-gutter-mode)
+  :config
+  (fringe-helper-define 'git-gutter-fr:added '(center t)
+    "XXX.....")
+  (fringe-helper-define 'git-gutter-fr:modified '(center t)
+    "XXX.....")
+  (fringe-helper-define 'git-gutter-fr:deleted  'center
+    "X......."
+    "XX......"
+    "XXX....."
+    "XXXX...."
+    "XXX....."
+    "XX......"
+    "X......."))
+
 (provide 'lain-ui)
