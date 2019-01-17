@@ -235,7 +235,8 @@
   (lain-leader-map
    "bB" 'ibuffer)
   :config
-  (evil-ex-define-cmd "buffers" 'ibuffer))
+  (after evil
+    (evil-ex-define-cmd "buffers" 'ibuffer)))
 
 (use-package ibuffer-projectile
   :after ibuffer
