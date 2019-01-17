@@ -89,7 +89,6 @@
 	     all-the-icons-install-fonts))
 
 (use-package doom-modeline
-  :ghook ('after-init-hook 'doom-modeline-init)
   :init
   (setq
    ;;doom-modeline-height 25
@@ -97,7 +96,14 @@
    doom-modeline-bar-width 3
    doom-modeline-buffer-file-name-style 'relative-to-project
    doom-modeline-minor-modes t
-   doom-modeline-github nil))
+   doom-modeline-github nil)
+  (defun lain/init-doom-modeline (&optional frame)
+    (with-selected-frame (or frame (selected-frame))
+      (doom-modeline-init)))
+  (add-hook (if (daemonp)
+		'after-make-frame-functions
+	      'after-init-hook)
+	    #'lain/init-doom-modeline))
 
 (use-package writeroom-mode
   :general
@@ -147,7 +153,6 @@
 (use-package git-gutter-fringe
   :diminish (git-gutter-mode . "")
   :defer .1
-  :when (display-graphic-p)
   :ghook
   ('(prog-mode-hook text-mode-hook) 'git-gutter-mode)
   :config
