@@ -51,7 +51,7 @@ mysql python python3 ruby scala swift")
     ("l" "List" lc-list-popup)]
    [("s" "Show" lc-show-popup)
     ("f" "Files" lc-files)
-    ("p" "Sumbit" lc-submit)]
+    ("p" "Submit" lc-submit)]
    [("t" "Test" lc-test-popup)
     ("x" "Submission" lc-submission-popup)]
    ])
@@ -166,7 +166,7 @@ mysql python python3 ruby scala swift")
 (defun lc-submit ()
   (interactive)
   (with-leetcode-file file
-    (lc-run "submit" file)))
+    (lc-popup "submit" file)))
 
 
 ;; test
@@ -175,10 +175,11 @@ mysql python python3 ruby scala swift")
   ["Actions" [("t" "test" lc-test)]])
 
 ;;;###autoload
-(defun lc-test (&optinoal args)
+(defun lc-test (&optional args)
   (interactive (list (transient-args)))
   (with-leetcode-file file
-    (lc-run "test" file args)))
+    (lc-popup "test" file args)))
+
 
 
 ;; submission
