@@ -31,7 +31,9 @@
     (add-hook (intern (format "%s-hook" mode))
 	      (lambda ()
 		(set (make-local-variable 'company-backends)
-		     (append backend (default-value 'company-backends))))))
+		     (if (consp backend)
+			 (append backend (default-value 'company-backends))
+		       (cons backend (default-value 'company-backends)))))))
   :config
   (global-company-mode +1))
 

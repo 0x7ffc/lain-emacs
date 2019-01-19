@@ -102,7 +102,6 @@ Inserted by installing org-mode or when a release is made."
      (right . "s"))))
 
 (use-feature org-agenda
-  :gfhook
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)

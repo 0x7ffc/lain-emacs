@@ -23,8 +23,7 @@
 (put 'lain/set-clojure-leader-keys 'lisp-indent-function 'defun)
 
 (use-package clojure-mode
-  :gfhook
-  ('clojure-mode-hook lain-clojure-fns)
+  :gfhook lain-clojure-fns
   :config
   (lain/set-popup-rules
     '("^\\*cider-repl" :quit nil :select t)
@@ -51,7 +50,7 @@
 (use-package cider
   :gfhook
   'eldoc-mode
-  ('(cider-repl-mode-hook cider-clojure-interaction-mode)
+  ('(cider-repl-mode-hook cider-clojure-interaction-mode-hook)
    (cons 'eldoc-mode lain-clojure-fns))
   :general
   ((normal insert)

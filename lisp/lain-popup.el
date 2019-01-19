@@ -165,6 +165,7 @@
 (lain/set-popup-rules
   '("^\\*[Hh]elp" :size 0.35 :select t)
   '("^\\*info\\*$" :size 0.45 :select t)
+  '("^\\*Warning" :size 0.35)
   '("^\\*Backtrace" :size 0.35 :quit nil)
   '("^ \\*undo-tree\\*" :slot 2 :side right :select t)
   '("^\\*Pp Eval" :size shrink-window-if-larger-than-buffer :select ignore)
