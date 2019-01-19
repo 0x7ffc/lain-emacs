@@ -17,6 +17,7 @@ Journey of me writing modern(?) day =.emacs.d= using:
   - [[#tasks-3649][TASKS]]
   - [[#how-to-use][How to Use]]
   - [[#note-about-speed][Note about SPEED]]
+  - [[#note-about-rsi][Note about RSI]]
   - [[#external-programs][External Programs]]
 
 * MY PROBLEM
@@ -309,6 +310,30 @@ xrdb ~/.Xresources
 #+END_SRC
 
 You may want to put last line in your zshrc or bashrc.
+
+** Note about RSI
+
+You are gonna use your pinky a lot, and this will result in RSI if not
+handled properly. To avoid this, first I recommend reading xah's blog
+ [[http://ergoemacs.org/emacs/emacs_pinky.html]["How to Avoid Emacs Pinky"]].
+
+Now here are some additional methods which are not mentioned in the
+blog post:
+
+ - If you're using a thinkpad as I do, remap the two keys above touchpad and
+   below spacebar to the keys you like.
+ - Use spacebar as control: Pressing and releasing results in space
+   as normal, but if held while pressing other keys it acts like
+   control. You can achieve this by using xcape if you're on linux and
+   karabiner if on OSX. Both provide additonal features like generate
+   the =Escape= key when =Left Control= is pressed and released on
+   its own, it plays nicely with evil-mode(Vim). Also I'm on WSL, it
+   works fine with X server.
+
+If these two doesn't suit you, I think at least you should swap keys
+around, or use sticky keys....
+
+Good luck my fellow Emacsers.
 
 ** External Programs
 
