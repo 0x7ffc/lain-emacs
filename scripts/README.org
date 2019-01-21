@@ -1,3 +1,17 @@
 * Scripts
 
-I /borrowed/ =ec= =et= and =es= from [[http://mjwall.com/blog/2013/10/04/how-i-use-emacs/][here]].
+** bin
+
+I /borrowed/ =ec= =et= and =es= from [[http://mjwall.com/blog/2013/10/04/how-i-use-emacs/][here]], highly recommended.
+
+ - =ec= connect to emacsclient, start one if not already started (GUI).
+ - =et= same as above, except in terminal.
+ - =es= kill emacs server.
+
+** zshrc
+
+My personal =.zshrc= config, you probably don't need to use this.
+
+#+begin_src shell
+  ln -sf ~/.emacs.d/scripts/zshrc ~/.zshrc
+#+end_src

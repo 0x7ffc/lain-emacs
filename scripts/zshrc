@@ -1,0 +1,119 @@
+# install these using package manager
+#   ripgrep, fd
+
+# proxy
+function proxy_set {
+    export ALL_PROXY=http://127.0.0.1:1080
+    export HTTP_PROXY=http://127.0.0.1:1080
+    export HTTPS_PROXY=http://127.1.0.1:1080
+}
+proxy_set
+
+function proxy_unset () {
+    unset ALL_PROXY
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+}
+
+# zsh
+export ZSH="/home/merlin/.oh-my-zsh"
+
+ZSH_THEME="ys"
+
+plugins=(
+    git
+    rbenv
+    lein
+)
+
+if [[ ! -d $ZSH ]]; then
+    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH
+    chmod 755 -R $ZSH
+fi
+
+source $ZSH/oh-my-zsh.sh
+
+# fira code font
+fonts_dir="${HOME}/.local/share/fonts"
+
+if [ ! -d "${fonts_dir}" ]; then
+    mkdir -p "${fonts_dir}"
+fi
+
+if [[ ! $(fc-list | grep "Fira") ]]; then
+    echo "installing Fira Code"
+    fira_url=$(curl -s https://api.github.com/repos/tonsky/FiraCode/releases/latest | grep browser_download_url | cut -d '"' -f 4)
+    mkdir /tmp/firacode
+    wget -P /tmp/firacode $fira_url
+    unzip -d /tmp/firacode /tmp/firacode/*.zip
+    cp /tmp/firacode/ttf/*.ttf $fonts_dir
+    rm -rf /tmp/firacode
+fi
+
+if [[ ! $(fc-list | grep "FiraCode-Regular-Symbol") ]]; then
+    echo "installing Fira Code Symbol"
+    mkdir /tmp/firasymbol
+    wget -P /tmp/firasymbol https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip
+    unzip -d /tmp/firasymbol /tmp/firasymbol/*.zip
+    cp /tmp/firasymbol/FiraCode-Regular-Symbol.otf $fonts_dir
+    rm -rf /tmp/firasymbol
+fi
+
+# emacs.d
+if [[ ! -d ~/.emacs.d ]]; then
+    echo "installing emacs.d"
+    git clone git@github.com:ACEMerlin/lain-emacs.git ~/.emacs.d
+    cp ~/.emacs.d/personal/lain.el.example ~/.emacs.d/personal/lain.el
+fi
+
+export PATH=$HOME/.emacs.d/scripts/bin:$PATH
+
+# rbenv
+if [[ ! -d ~/.rbenv ]]; then
+    echo "installing rbenv"
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    if [[ ! -d ~/.rbenv/plugins/ruby-build ]]; then
+	git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+    fi
+fi
+
+# leiningen
+if [[ ! -d ~/.lein/bin ]]; then
+    echo "installing leiningen"
+    mkdir -p ~/.lein/bin
+    wget -P ~/.lein/bin https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    chmod +x ~/.lein/bin/lein
+fi
+
+export PATH=$HOME/.lein/bin:$PATH
+
+# x server
+microsoft="Microsoft";
+if [[ $(uname -a) =~ $microsoft ]]; then
+    DIMENSIONS=$(xdpyinfo 2> /dev/null | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
+    WIDTH=$(echo $DIMENSIONS | sed -r 's/x.*//')
+    HEIGHT=$(echo $DIMENSIONS | sed -r 's/.*x//')
+
+    if [[ $WIDTH -gt 1920 ]]; then
+	export GDK_SCALE=2
+    fi
+
+    export DISPLAY=127.0.0.1:0.0
+fi
+
+if [[ ! -f ~/.Xresources ]]; then
+    cp ~/.emacs.d/.Xresources.example ~/.Xresources
+fi
+
+xrdb ~/.Xresources
+
+# other things
+export EDITOR=emacsclient
+export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+unsetopt BG_NICE
+
+setxkbmap -layout us -variant dvorak -model pc105
+
+export SCREENDIR=$HOME/.screen
