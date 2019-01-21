@@ -21,7 +21,7 @@
   :gfhook lain-clojure-fns
   :config
   (lain/set-popup-rules
-    '("^\\*cider-error" :size 0.35 :slot 1)
+    '("^\\*cider-error" :size 0.3 :slot 1)
     '("^\\*cider-repl" :size 0.3 :quit nil :select t)
     '("^\\*cider-repl-history" :size 0.4 :side right :slot 2)))
 
@@ -39,6 +39,8 @@
    "C-t" 'cider-repl-next-input
    "C-n" 'cider-repl-previous-input)
   :config
+  (lain/set-major-mode-leader-keys clojure-mode
+    "'" 'cider-jack-in)
   (setq
    nrepl-hide-special-buffers t
    nrepl-log-messages nil

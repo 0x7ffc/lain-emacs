@@ -24,6 +24,7 @@
      lain-emacs-lisp
      ;; lain-org
      ;; lain-clojure
+     ;; lain-ruby
      ;; lain-popup
      ;; lain-leetcode
      )

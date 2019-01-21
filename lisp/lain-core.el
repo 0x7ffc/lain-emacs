@@ -295,4 +295,10 @@
    [remap describe-command]  'helpful-command
    [remap describe-function] 'helpful-function))
 
+(use-feature subword
+  :diminish)
+
+(use-feature abbrev
+  :diminish)
+
 (provide 'lain-core)
