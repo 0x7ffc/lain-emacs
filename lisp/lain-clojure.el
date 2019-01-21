@@ -5,6 +5,7 @@
     evil-cleverparens-mode
     highlight-parentheses-mode
     paren-face-mode
+    indent-guide-mode
     subword-mode)
   "Functions to run for all clojure modes")
 

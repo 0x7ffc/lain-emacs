@@ -169,4 +169,8 @@
     "XX......"
     "X......."))
 
+(use-package indent-guide
+  :diminish
+  :commands indent-guide-mode)
+
 (provide 'lain-ui)

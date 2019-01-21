@@ -4,7 +4,8 @@
   '(smartparens-strict-mode
     evil-cleverparens-mode
     highlight-parentheses-mode
-    paren-face-mode)
+    paren-face-mode
+    indent-guide-mode)
   "Functions to run for all elisp modes")
 
 (use-feature elisp-mode
@@ -97,10 +98,6 @@ Unlike `edebug-defun', this does not go to topmost function."
       (edebug-defun)
       (message "Edebug enabled")
       (widen))))
-
-(use-package indent-guide
-  :diminish
-  :ghook 'emacs-lisp-mode-hook)
 
 (use-package aggressive-indent
   :diminish
