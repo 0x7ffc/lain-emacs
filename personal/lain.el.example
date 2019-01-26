@@ -19,13 +19,13 @@
    lain-inhibit-startup-time nil
    lain-modules
    '(
+     lain-popup
      lain-company
      lain-utils
      lain-emacs-lisp
      ;; lain-org
      ;; lain-clojure
      ;; lain-ruby
-     ;; lain-popup
      ;; lain-leetcode
      )
    ))

@@ -15,17 +15,22 @@
 (put 'lain/dv-keys 'lisp-indent-function 'defun)
 
 
-(defmacro lain/set-major-mode-leader-keys (mode &rest bindings)
+(defmacro lain/set-major-mode-leader-keys (modes &rest bindings)
   "Just like spacemacs's `spacemacs/set-leader-keys-for-major-mode'
 It creates lain-<mode>-map to use with :general keyword"
-  (let ((prefix-map (intern (format "lain-%s-map" mode)))
-	(keymap (intern (format "%s-map" mode))))
-    `(general-define-key
-      :states 'normal
-      :prefix ,lain-major-mode-leader-key
-      :keymaps ',keymap
-      :prefix-map ',prefix-map
-      ,@bindings)))
+  (cons 'progn
+	(-map (lambda (mode)
+		(let ((prefix-map (intern (format "lain-%s-map" mode)))
+		      (keymap (intern (format "%s-map" mode))))
+		  `(general-define-key
+		    :states 'normal
+		    :prefix ,lain-major-mode-leader-key
+		    :keymaps ',keymap
+		    :prefix-map ',prefix-map
+		    ,@bindings)))
+	      (if (consp modes)
+		  modes
+		(list modes)))))
 (put 'lain/set-major-mode-leader-keys 'lisp-indent-function 'defun)
 
 

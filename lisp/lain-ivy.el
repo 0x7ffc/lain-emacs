@@ -79,7 +79,8 @@
    "hf"  'counsel-describe-function
    "hv"  'counsel-describe-variable
    "hb"  'counsel-descbinds
-   "hS"  'counsel-info-lookup-symbol)
+   "hS"  'counsel-info-lookup-symbol
+   "ip"  'counsel-yank-pop)
   :config
   (defun lain/counsel-rg-at-point ()
     (interactive)

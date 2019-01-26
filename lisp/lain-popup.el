@@ -176,10 +176,10 @@
 (add-hook 'after-init-hook
 	  (lambda () (add-hook 'lain-escape-hook #'lain/popup-close-on-escape t)))
 
-(general-def
-  "C-c C-p"  '(:ignore t :wk "Popup")
-  "C-c C-p d" 'lain/popup-close-all
-  "C-c C-p r" 'lain/popup-raise)
+(lain-leader-def
+  "P"  '(:ignore t :wk "Popup")
+  "Pd" 'lain/popup-close-all
+  "Pr" 'lain/popup-raise)
 
 
 ;; Hacks

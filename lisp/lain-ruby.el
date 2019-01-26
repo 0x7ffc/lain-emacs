@@ -39,7 +39,7 @@
     '("^\\*ruby\\*$" :quit nil :select t :size 0.3)
     '("^\\*pry\\*$" :quit nil :size 0.3)
     '("^\\*robe-doc\\*$" :select t :slot 1 :size 0.3))
-  (lain/set-major-mode-leader-keys enh-ruby-mode
+  (lain/set-major-mode-leader-keys (inf-ruby-mode enh-ruby-mode)
     "'" 'robe-start)
   (lain/set-company-backend 'enh-ruby-mode 'company-robe))
 
@@ -63,7 +63,7 @@
 (use-package bundler
   :after enh-ruby-mode
   :init
-  (lain/set-major-mode-leader-keys enh-ruby-mode
+  (lain/set-major-mode-leader-keys (inf-ruby-mode enh-ruby-mode)
     "b"  '(:ignore t :wk "bundler")
     "bc" 'bundle-check
     "bi" 'bundle-install

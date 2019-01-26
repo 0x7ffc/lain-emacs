@@ -1,20 +1,6 @@
 ;; lain-leetcode.el -*- lexical-binding: t; -*-
 
-(use-package transient
-  :straight (:host github :repo "magit/transient")
-  :init
-  (setq transient-history-file
-	(no-littering-expand-var-file-name "transient-history.el")))
-
-(require 'transient)
-(require 'dash)
-(require 'f)
-
 (defvar lc-executable "leetcode-cli")
-
-(defvar lc-user-name nil)
-
-(defvar lc-password (getenv "LEETCODE_PASS"))
 
 (defvar lc-lang "c"
   "Available langs:
@@ -24,8 +10,6 @@ mysql python python3 ruby scala swift")
 (defvar lc-dir (f-canonical "~/.lc/emacs-leetcode/"))
 
 (defvar lc-submission-dir (f-canonical "~/.lc/emacs-leetcode/submission"))
-
-(defvar lc-buffer "*leetcode*")
 
 ;;;###autoload
 (defun lc-popup (&rest command)
@@ -44,61 +28,21 @@ mysql python python3 ruby scala swift")
 	(shell-command-to-string command)
       (message "Done!"))))
 
-(define-transient-command lc-help-popup ()
-  ["Actions"
-   [("u" "User" lc-user-popup)
-    ("v" "Version" lc-version-popup)
-    ("l" "List" lc-list-popup)]
-   [("s" "Show" lc-show-popup)
-    ("f" "Files" lc-files)
-    ("p" "Submit" lc-submit)]
-   [("t" "Test" lc-test-popup)
-    ("x" "Submission" lc-submission-popup)]
-   ])
-(defalias 'leetcode 'lc-help-popup)
+;;;###autoload
+(defun leetcode ()
+  (interactive)
+  (require 'transient)
+  (lc-help-popup))
 
 
 ;; version
-(define-transient-command lc-version-popup ()
-  ["Arguments" ("-v" "verbose" "-v")]
-  ["Actions" [("v" "Show version info" lc-version)]])
-
 ;;;###autoload
 (defun lc-version (&optional args)
   (interactive (list (transient-args)))
   (lc-popup "version" args))
 
 
-;; user
-;; TODO Need support, leetcode-cli has no login argument
-(define-transient-command lc-user-popup ()
-  ["Actions"
-   [("l" "TODO Login" lc-user-login)
-    ("o" "TODO Logout" lc-user-logout)
-    ("s" "TODO Show currnt account" leetcod-user-show)]])
-
-
 ;; list
-(define-transient-command lc-list-popup ()
-  ["Arguments"
-   [("-e" "easy" "e")
-    ("-E" "not easy(m+h)" "E")
-    ("-m" "medium" "m")
-    ("-M" "not medium(e+h)" "M")
-    ("-h" "hard" "h")
-    ("-H" "not hard" "H")]
-   [("-d" "Ac-ed" "d")
-    ("-D" "not Ac-ed" "D")
-    ("-l" "locked" "l")
-    ("-L" "not locked" "L")
-    ("-s" "started" "s")
-    ("-S" "not started" "S")]
-   [("-t" "filter by tag" "-t=" read-string)
-    ("-k" "keyword" " " read-string)
-    ("-T" "show statistic" "-s")]]
-  ["Actions"
-   [("l" "Query by conditions" lc-list)]])
-
 ;;;###autoload
 (defun lc-list (&optional args)
   (interactive (list (transient-args)))
@@ -108,15 +52,6 @@ mysql python python3 ruby scala swift")
 
 
 ;; show
-(define-transient-command lc-show-popup ()
-  ["Arguments"
-   ("-g" "generate file" "-g")
-   ("-x" "add description" "-x")
-   ("-k" "id/name" " " read-string)
-   ("-c" "only show template" "-c")]
-  ["Actions"
-   [("s" "Display question" lc-show)]])
-
 ;;;###autoload
 (defun lc-show (&optional args)
   (interactive (list (transient-args)))
@@ -166,31 +101,18 @@ mysql python python3 ruby scala swift")
 (defun lc-submit ()
   (interactive)
   (with-leetcode-file file
-    (lc-popup "submit" file)))
+		      (lc-popup "submit" file)))
 
 
 ;; test
-(define-transient-command lc-test-popup ()
-  ["Arguments" ("-t" "test case" "-t=" read-string)]
-  ["Actions" [("t" "test" lc-test)]])
-
 ;;;###autoload
 (defun lc-test (&optional args)
   (interactive (list (transient-args)))
   (with-leetcode-file file
-    (lc-popup "test" file args)))
-
+		      (lc-popup "test" file args)))
 
 
 ;; submission
-(define-transient-command lc-submission-popup ()
-  ["Arguments"
-   ("-a" "all questions" "-a")
-   ("-x" "with details" "-x")
-   ("-k" "id/name" " " read-string)]
-  ["Actions"
-   ("x" "submission" lc-submission)])
-
 ;;;###autoload
 (defun lc-submission (&optional args)
   (interactive (list (transient-args)))
@@ -199,12 +121,67 @@ mysql python python3 ruby scala swift")
 		      args)))
     (lc-run "submission" args)))
 
-
 (provide 'lain-leetcode)
+
+
+(use-package transient
+  :straight (:host github :repo "magit/transient")
+  :init
+  (setq transient-history-file
+	(no-littering-expand-var-file-name "transient-history.el")))
 
 (use-feature lain-leetcode
   :general
   (lain-leader-map
    "al" 'leetcode)
-  :init
-  (setq lc-user-name "gezimerlin@gmail.com"))
+  :config
+  (after transient
+    (define-transient-command lc-help-popup ()
+      ["Actions"
+       [("v" "Version" lc-version-popup)
+	("l" "List" lc-list-popup)]
+       [("s" "Show" lc-show-popup)
+	("f" "Files" lc-files)
+	("p" "Submit" lc-submit)]
+       [("t" "Test" lc-test-popup)
+	("x" "Submission" lc-submission-popup)]])
+    (define-transient-command lc-version-popup ()
+      ["Arguments" ("-v" "verbose" "-v")]
+      ["Actions" [("v" "Show version info" lc-version)]])
+    (define-transient-command lc-list-popup ()
+      ["Arguments"
+       [("-e" "easy" "e")
+	("-E" "not easy(m+h)" "E")
+	("-m" "medium" "m")
+	("-M" "not medium(e+h)" "M")
+	("-h" "hard" "h")
+	("-H" "not hard" "H")]
+       [("-d" "Ac-ed" "d")
+	("-D" "not Ac-ed" "D")
+	("-l" "locked" "l")
+	("-L" "not locked" "L")
+	("-s" "started" "s")
+	("-S" "not started" "S")]
+       [("-t" "filter by tag" "-t=" read-string)
+	("-k" "keyword" " " read-string)
+	("-T" "show statistic" "-s")]]
+      ["Actions"
+       [("l" "Query by conditions" lc-list)]])
+    (define-transient-command lc-show-popup ()
+      ["Arguments"
+       ("-g" "generate file" "-g")
+       ("-x" "add description" "-x")
+       ("-k" "id/name" " " read-string)
+       ("-c" "only show template" "-c")]
+      ["Actions"
+       [("s" "Display question" lc-show)]])
+    (define-transient-command lc-test-popup ()
+      ["Arguments" ("-t" "test case" "-t=" read-string)]
+      ["Actions" [("t" "test" lc-test)]])
+    (define-transient-command lc-submission-popup ()
+      ["Arguments"
+       ("-a" "all questions" "-a")
+       ("-x" "with details" "-x")
+       ("-k" "id/name" " " read-string)]
+      ["Actions"
+       ("x" "submission" lc-submission)])))
