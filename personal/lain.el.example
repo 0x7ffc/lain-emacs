@@ -13,14 +13,12 @@
 	       :width normal)
    lain-text-properties '(line-spacing 2 line-height 1.0)
    lain-leader-key "SPC"
-   lain-emacs-leader-key "C-c"
+   lain-emacs-leader-key "M-SPC"
    lain-major-mode-leader-key ","
    lain-fullscreen-at-startup nil
    lain-inhibit-startup-time nil
    lain-modules
    '(
-     lain-popup
-     lain-company
      lain-utils
      lain-emacs-lisp
      ;; lain-org

@@ -41,7 +41,7 @@
     '("^\\*robe-doc\\*$" :select t :slot 1 :size 0.3))
   (lain/set-major-mode-leader-keys (inf-ruby-mode enh-ruby-mode)
     "'" 'robe-start)
-  (lain/set-company-backend 'enh-ruby-mode 'company-robe))
+  (lain/set-company-backend '(enh-ruby-mode inf-ruby-mode) 'company-robe))
 
 (use-package rbenv
   :ghook ('enh-ruby-mode-hook 'lain/enable-rbenv)

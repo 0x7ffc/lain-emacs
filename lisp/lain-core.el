@@ -78,7 +78,8 @@
    "pd" 'projectile-find-dir
    "pD" 'lain/projectile-deer
    "pk" 'projectile-kill-buffers
-   "pb" 'projectile-switch-to-buffer)
+   "pb" 'projectile-switch-to-buffer
+   "pW" 'lain/projectile-cleanup-whitespace)
   :init
   (when (executable-find "fd")
     (setq
@@ -95,6 +96,15 @@
     "Open `deer' from the root of the project."
     (interactive)
     (deer (projectile-ensure-project (projectile-project-root))))
+  (defun lain/projectile-cleanup-whitespace ()
+    "Run `whitespace-cleanup' on all project files"
+    (interactive)
+    (projectile-process-current-project-files
+     (lambda (file)
+       (with-temp-buffer
+	 (insert-file-contents file)
+	 (whitespace-cleanup)
+	 (write-file file)))))
   (projectile-mode +1))
 
 (use-package smartparens

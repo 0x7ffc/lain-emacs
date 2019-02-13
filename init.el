@@ -63,6 +63,8 @@ Otherwise it's `/home/$USER/.emacs.d/'")
 (require 'lain-font)
 (require 'lain-evil)
 (require 'lain-ivy)
+(require 'lain-company)
+(require 'lain-popup)
 
 (-each lain-modules 'require)
 
