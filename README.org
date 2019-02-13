@@ -31,8 +31,8 @@ Journey of me writing modern(?) day =.emacs.d= using:
 * My Journey
 
 These problems are getting bigger and my Spacemacs config are getting
-messier. So I decided to write my own =.emacs.d=. After wirting some
-code I really feel like that everyone should wirte their own Emacs
+messier. So I decided to write my own =.emacs.d=. After writing some
+code I really feel like that everyone should write their own Emacs
 configuration, here is why:
 
  - Different people emphasize on different tech stack, you don't need
@@ -42,7 +42,7 @@ configuration, here is why:
  - There EXIST people who use keyboard layout other than QWERTY
  - The problem with large configuration like *spacemacs* is the same
    with any complex enough IDE:
-   - Their is a learing curve before you can be productive.
+   - Their is a learning curve before you can be productive.
    - Even you think you are /productive/, you still just use, like 10%
      of what it offers.
    - Configuration generally separates into two parts, the default
@@ -71,8 +71,8 @@ myself. I find it quite satisfying and enjoyable:
    - =evil-mode= use Vim inside Emacs
    - =which-key= display key bindings following your currently entered
      incomplete command in a popup window
- - There are a lot of great tutorails and source codes out there that
-   helps you wirte anything you want.
+ - There are a lot of great tutorials and source codes out there that
+   helps you write anything you want.
    - [[The offical GUN Emacs manual][The offical GUN Emacs manual]]
    - [[https://github.com/chrisdone/elisp-guide][elisp-guide]]
    - [[https://github.com/noctuid/evil-guide][evil-guide]]
@@ -86,14 +86,14 @@ learned a lot even just by copy-pasting their code. I check every
 variable and every function I see with =C-h= so that I know what they
 do.
 
-Actually, Spacemacs interally use =use-package= an =which-key=. I
+Actually, Spacemacs internally use =use-package= an =which-key=. I
 think with this approach the ideal configuration should look something
 like this:
 
 [[./img/use-package-fold.png]]
 
 Just bunch of =use-package= forms (use-feature is just a simple
-wrapper arround use-package).
+wrapper around use-package).
 
 That being said, there are some minor issues:
  - =use-package= doesn't offer a convenient why to write code
@@ -129,21 +129,21 @@ from that it's still a good reference to get started hacking Emacs.
 It's using "htns" instead of "hjkl" to move around. It also tries to
 remap possible "C-j" "C-k" "C-n" "C-p" to "C-t" "C-n". And it works
 with =evil-mode=. It has a fast startup time, but I usually use emacs
-deamon (see scripts directory). Check the tasks list for what I've
-been doing and what'll be implemented in the future.
+daemon (see scripts directory). Check the tasks list for what I've
+been doing and what will be implemented in the future.
 
 Hope you find my experience helpful.
 
 * The Workflow
 
 I guess not everybody is gonna read all the code (not too much TBH),
-so I'll describe what my typicle workflow looks like (keep in mind
-that this is entry level stuff, don't laught at me):
+so I'll describe what my typical workflow looks like (keep in mind
+that this is entry level stuff, don't laugh at me):
 
  - Run =ec= in terminal to fire up Emacs server and connect to it
    (export PATH="$PATH:$HOME/.emacs.d/scripts/).
  - Switch to a project using =SPC p p=, or =SPC f f= to navigate to a
-   file in a new projcet.
+   file in a new project.
  - Use =SPC p f= to find file in a project.
  - In case of =projectile= couldn't find a newly created file or still
    showing deleted file, run =SPC p I=
@@ -163,7 +163,7 @@ that this is entry level stuff, don't laught at me):
    - =SPC w 2= split window vertically
    - =SPC w 3= split window horizontally
    - =SPC w h/t/n/s= move to the left/down/up/right window
-   - =SPC 1/2.../9= swtich to a window by number
+   - =SPC 1/2.../9= switch to a window by number
    - =SPC w d= delete current window
  - While editing a file
    - =C-s= to search text in current buffer
@@ -187,7 +187,7 @@ Some editing notes:
    - =M-r= raise an expression
    - =M-s= splice an expression
    - =<= and =>= to slurp expression
-   - =_= move to the first non opening charecter
+   - =_= move to the first non opening character
    - =dd= will not break parenthesis and keep our s-expression correct
  - =evil-commentary= add comment operator, e.g.
    - =gcap= to comment current paragraph
@@ -224,7 +224,7 @@ Some editing notes:
    - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
    - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
  - [ ] imenu
-   - custom imenu regular expessoins with different languages
+   - custom imenu regular expressions with different languages
    - imenu-list
    - imenu-everywhere
    - counsel-imenu (? counsel-org-goto)

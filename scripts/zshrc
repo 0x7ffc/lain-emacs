@@ -5,7 +5,7 @@
 function proxy_set {
     export ALL_PROXY=http://127.0.0.1:1080
     export HTTP_PROXY=http://127.0.0.1:1080
-    export HTTPS_PROXY=http://127.1.0.1:1080
+    export HTTPS_PROXY=http://127.0.0.1:1080
 }
 proxy_set
 
