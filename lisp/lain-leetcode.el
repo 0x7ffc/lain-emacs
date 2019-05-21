@@ -125,7 +125,6 @@ mysql python python3 ruby scala swift")
 
 
 (use-package transient
-  :straight (:host github :repo "magit/transient")
   :init
   (setq transient-history-file
 	(no-littering-expand-var-file-name "transient-history.el")))
