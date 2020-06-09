@@ -6,10 +6,6 @@
 It'll rebuild all packages, and git update itself"
   (interactive)
   (when (y-or-n-p "Update now?")
-    (message "Updating installed packages...")
-    (straight-pull-all)
-    (straight-prune-build)
-    (straight-rebuild-all)
     (message "Updating Lain")
     (lain/with-dir "~/.emacs.d/"
       (shell-command "git pull"))

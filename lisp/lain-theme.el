@@ -31,25 +31,6 @@
 	gruvbox-light-medium
 	gruvbox-light-soft
 	gruvbox-light-hard))
-    (doom-themes
-     . (doom-one
-	doom-one-light
-	doom-vibrant
-	doom-city-lights
-	doom-dracula
-	doom-Iosvkem
-	doom-molokai
-	doom-nord
-	doom-nord-light
-	doom-opera
-	doom-opera-light
-	doom-nova
-	doom-peacock
-	doom-solarized-light
-	doom-sourcerer
-	doom-spacegrey
-	doom-tomorrow-night
-	doom-tomorrow-day))
     (base16-theme
      . (base16-3024
 	base16-apathy

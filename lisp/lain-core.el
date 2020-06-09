@@ -197,7 +197,7 @@
   :config
   (winum-mode))
 
-(use-feature vc
+(use-package vc
   :demand t
   :general
   (normal
@@ -213,7 +213,7 @@
   (remove-hook 'find-file-hook 'vc-find-file-hook)
   (setq vc-handled-backends '(Git)))
 
-(use-feature autorevert
+(use-package autorevert
   :demand t
   :config
   (setq
@@ -221,19 +221,17 @@
    global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode 1))
 
-(use-feature saveplace
+(use-package saveplace
   :demand t
   :config
   (save-place-mode +1))
 
-(use-feature recentf
+(use-package recentf
   :config
   (setq
    recentf-max-saved-items 100
    recentf-exclude
    (list #'file-remote-p
-	 ;; exclude straight.el files
-	 (lambda (file) (file-in-directory-p file "~/.emacs.d/straight"))
 	 "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\)$"
 	 "^/tmp/" "^/ssh:"))
   (let ((inhibit-message t))
@@ -264,7 +262,7 @@
   :config
   (prescient-persist-mode +1))
 
-(use-feature winner
+(use-package winner
   :defer .5
   :commands (winner-undo winner-redo)
   :preface (defvar winner-dont-bind-my-keys t)
@@ -275,7 +273,7 @@
   :config
   (winner-mode +1))
 
-(use-feature xref
+(use-package xref
   :general
   (normal
    xref--xref-buffer-mode-map
@@ -284,16 +282,11 @@
    "C-n" 'xref-prev-line
    "o"   'xref-show-location-at-point))
 
-(use-feature eldoc
+(use-package eldoc
   :diminish
   :ghook
   'eval-expression-minibuffer-setup-hook
   'ielm-mode-hook)
-
-(use-package help-fns+
-  :general
-  (lain-leader-map
-   "hK" 'describe-keymap))
 
 (use-package pcre2el)
 
@@ -305,10 +298,11 @@
    [remap describe-command]  'helpful-command
    [remap describe-function] 'helpful-function))
 
-(use-feature subword
+(use-package subword
   :diminish)
 
-(use-feature abbrev
+(use-package abbrev
+  :ensure nil
   :diminish)
 
 (provide 'lain-core)

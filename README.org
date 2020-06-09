@@ -3,7 +3,6 @@
 Journey of me writing modern(?) day =.emacs.d= using:
 
  - =use-package=
- - =straight.el=
  - =general.el=
  - =evil-mode=
  - =which-key=
@@ -64,8 +63,6 @@ myself. I find it quite satisfying and enjoyable:
  - Emacs ecosystem has advanced a lot since version 22/23. With proper
    tools one can easily replicated what minimal spacemacs offers.
    - =use-package= keep your code tidy and fast
-   - =straight.el= drop-in replacement for emacs's stock package
-     manager
    - =general.el= drop-in replacement for various keybinding methods
      for both stock emacs an evil-mode
    - =evil-mode= use Vim inside Emacs
@@ -92,8 +89,7 @@ like this:
 
 [[./img/use-package-fold.png]]
 
-Just bunch of =use-package= forms (use-feature is just a simple
-wrapper around use-package).
+Just bunch of =use-package= forms.
 
 That being said, there are some minor issues:
  - =use-package= doesn't offer a convenient why to write code
@@ -243,7 +239,6 @@ Some editing notes:
    - [ ] Clojure (PROG)
    - [ ] ...
  - [X] basic emacs setup (speed up hacks, basic ui tweaks)
- - [X] straight.el
  - [X] use-package
  - [X] general.el
  - [X] which-key

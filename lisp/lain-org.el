@@ -1,53 +1,8 @@
 ;; lain-org.el -*- lexical-binding: t; -*-
 
-;;; Prevent Emacs-provided Org from being loaded
-
-;; The following is a temporary hack until straight.el supports
-;; building Org, see:
-;;
-;; * https://github.com/raxod502/straight.el/issues/211
-;; * https://github.com/raxod502/radian/issues/410
-;;
-;; There are three things missing from our version of Org: the
-;; functions `org-git-version' and `org-release', and the feature
-;; `org-version'. We provide all three of those ourself, therefore.
-
-;; Package `git' is a library providing convenience functions for
-;; running Git.
 (use-package git)
 
-;;;###autoload
-(defun org-git-version ()
-  "The Git version of `org-mode'.
-Inserted by installing org-mode or when a release is made."
-  (require 'git)
-  (let ((git-repo (f-expand
-		   "straight/repos/org/" user-emacs-directory)))
-    (s-trim
-     (git-run "describe"
-	      "--match=release\*"
-	      "--abbrev=6"
-	      "HEAD"))))
-
-;;;###autoload
-(defun org-release ()
-  "The release version of org-mode.
-Inserted by installing org-mode or when a release is made."
-  (require 'git)
-  (let ((git-repo (f-expand
-		   "straight/repos/org/" user-emacs-directory)))
-    (s-trim
-     (s-chop-prefix
-      "release_"
-      (git-run "describe"
-	       "--match=release\*"
-	       "--abbrev=0"
-	       "HEAD")))))
-
-(provide 'org-version)
-
 (use-package org
-  :straight org-plus-contrib
   :gfhook
   'auto-fill-mode
   'lain/config-org
@@ -79,11 +34,6 @@ Inserted by installing org-mode or when a release is made."
      '(lain//org-update-table lain//org-update-statistics)
      nil t)))
 
-(use-package org-bullets
-  :after org
-  :straight (:host github :repo "Kaligule/org-bullets")
-  :ghook 'org-mode-hook)
-
 (use-package toc-org
   :after org
   :ghook 'org-mode-hook)
@@ -101,7 +51,7 @@ Inserted by installing org-mode or when a release is made."
      (left  . "h")
      (right . "s"))))
 
-(use-feature org-agenda
+(use-package org-agenda
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)

@@ -35,11 +35,11 @@
   (add-to-list 'default-frame-alist '(fullscreen . fullboth)))
 
 ;; Enable evil-mode's code folding feature: `zm' `zr'
-(use-feature hideshow
+(use-package hideshow
   :diminish hs-minor-mode
   :ghook ('prog-mode-hook 'hs-minor-mode))
 
-(use-feature hl-line
+(use-package hl-line
   :ghook
   'prog-mode-hook
   'text-mode-hook

@@ -8,7 +8,8 @@
     indent-guide-mode)
   "Functions to run for all elisp modes")
 
-(use-feature elisp-mode
+(use-package elisp-mode
+  :ensure nil
   :gfhook
   ('(emacs-lisp-mode-hook lisp-interaction-mode) lain-elisp-fns)
   :config
@@ -46,7 +47,7 @@ Unlike `eval-defun', this does not go to topmost function."
 	(sp-forward-symbol)
 	(call-interactively 'eval-last-sexp)))))
 
-(use-feature ielm
+(use-package ielm
   :gfhook 'turn-on-smartparens-strict-mode
   :general
   (lain-emacs-lisp-mode-map
@@ -70,7 +71,7 @@ Unlike `eval-defun', this does not go to topmost function."
   (lain-emacs-lisp-mode-map
    "em" 'macrostep-expand))
 
-(use-feature edebug
+(use-package edebug
   :gfhook 'evil-normalize-keymaps
   :general
   (lain-emacs-lisp-mode-map

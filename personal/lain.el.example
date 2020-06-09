@@ -4,8 +4,8 @@
   (setq-default
    ;; Use `SPC t C' to cycle through themes
    ;; See `lain-theme.el' for list of themes to use.
-   lain-themes '(doom-peacock
-		 zenburn
+   lain-themes '(
+     zenburn
 		 base16-ocean)
    lain-font '("Fira Code"
 	       ;;:size 14

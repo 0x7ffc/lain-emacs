@@ -129,7 +129,7 @@ mysql python python3 ruby scala swift")
   (setq transient-history-file
 	(no-littering-expand-var-file-name "transient-history.el")))
 
-(use-feature lain-leetcode
+(use-package lain-leetcode
   :general
   (lain-leader-map
    "al" 'leetcode)

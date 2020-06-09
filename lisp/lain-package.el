@@ -1,12 +1,10 @@
 ; lain-package.el -*- lexical-binding: t; -*-
 
+(require 'package)
+
 (setq
+ package-enable-at-startup nil
  load-prefer-newer t
- straight-repository-branch "develop"
- straight-check-for-modifications '(find-when-checking)
- straight-use-package-by-default t
- straight-cache-autoloads t
- straight-treat-as-init t
  use-package-always-defer t
  use-package-expand-minimally t
  use-package-verbose nil
@@ -15,33 +13,22 @@
  ;; debug-on-error t
  )
 
-(add-hook 'after-init-hook `(lambda ()
-			      (setq straight-treat-as-init nil)
-			      (straight-finalize-transaction)))
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                         ("org"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+(package-initialize)
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-	 'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(straight-use-package 'use-package)
-(use-package diminish :demand t)
+(eval-when-compile
+  (require 'use-package))
 
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
-(defmacro use-feature (name &rest args)
-  "Like `use-package', but with `straight-use-package-by-default' disabled."
-  `(use-package ,name
-     :straight nil
-     ,@args))
-(put 'use-feature 'lisp-indent-function 'defun)
+(use-package diminish)
 
 (defmacro after (name &rest args)
   "Simple wrapper around `with-eval-after-load'"
