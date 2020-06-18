@@ -42,11 +42,11 @@
   :config
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
 
-(when (memq window-system '(mac ns))
-  (use-package exec-path-from-shell
-    :demand t
-    :config
-    (exec-path-from-shell-initialize)))
+(use-package exec-path-from-shell
+  :when (memq window-system '(mac ns))
+  :demand t
+  :config
+  (exec-path-from-shell-initialize))
 
 (use-package which-key
   :defer .1
