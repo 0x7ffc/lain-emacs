@@ -215,10 +215,10 @@ Some editing notes:
 
 * Details
 
-** TODO TASKS [36/49]
- - [ ] company (? seems hard to manage all the backends, need to investigate more)
-   - [ ] [[https://github.com/company-mode/company-mode/issues/839]]
-   - [ ] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
+** TODO TASKS [37/48]
+ - [X] company (? seems hard to manage all the backends, need to investigate more)
+   - [X] [[https://github.com/company-mode/company-mode/issues/839]]
+   - [X] [[https://github.com/company-mode/company-mode/issues/407#issuecomment-143076813]]
  - [ ] imenu
    - custom imenu regular expressions with different languages
    - imenu-list
@@ -229,14 +229,15 @@ Some editing notes:
  - [ ] snippet
  - [ ] custom dashboard (? maybe)
  - [ ] org-mode
- - [ ] popup management (PROG)
+ - [X] popup management)
  - [ ] workspace management (? but how)
  - [ ] terminal (? is emacs really suitable for terminal usage)
  - [ ] flycheck
  - [ ] email client (? notmuch / mu4e)
  - [-] various programming languages (? do we use language server)
    - [X] Emacs-Lisp
-   - [ ] Clojure (PROG)
+   - [X] Clojure
+   - [X] Ocaml
    - [ ] ...
  - [X] basic emacs setup (speed up hacks, basic ui tweaks)
  - [X] use-package
@@ -351,6 +352,11 @@ I'm on debian so...
 *** fd
 #+BEGIN_SRC shell
   curl -LO https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_7.2.0_amd64.deb
+#+END_SRC
+
+*** lain-ocaml.el
+#+BEGIN_SRC shell
+  opam install utop ocamlformat ocp-indent dune merlin
 #+END_SRC
 
 Happy hacking!
