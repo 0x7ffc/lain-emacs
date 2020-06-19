@@ -25,7 +25,8 @@
     "ee" 'utop-eval-phrase
     "eb" 'utop-eval-buffer
     "k"  'utop-kill)
-  (setq utop-command "opam config exec -- utop -emacs")
+  (setq utop-protocol-version "1")
+  (setq utop-command "opam config exec -- dune utop . -- -emacs")
   (lain/set-popup-rules '("^\\*utop\\*$" :quit nil :size 0.3)))
 
 (use-package dune
@@ -45,7 +46,8 @@
   :general
   ((normal insert)
    merlin-mode-map
-   "M-." 'merlin-locate)
+   "M-." 'merlin-locate
+   "M-," 'merlin-pop-stack)
   (lain-tuareg-mode-map
    "mr" 'merlin-occurrences
    "md" 'merlin-document
