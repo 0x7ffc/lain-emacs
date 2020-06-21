@@ -163,8 +163,8 @@
 ;;   size: number/function, default 0.25
 
 (lain/set-popup-rules
-  '("^\\*[Hh]elp" :size 0.35 :select t)
-  '("^\\*info\\*$" :size 0.45 :select t)
+  '("^\\*[Hh]elp" :size 0.3 :select t :slot 1)
+  '("^\\*info\\*$" :size 0.45 :select t :slot 1)
   '("^\\*Warning" :size 0.35)
   '("^\\*Backtrace" :size 0.35 :quit nil)
   '("^ \\*undo-tree\\*" :slot 2 :side right :select t)

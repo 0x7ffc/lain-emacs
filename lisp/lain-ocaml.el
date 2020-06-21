@@ -4,6 +4,11 @@
   :init
   (setq tuareg-opam-insinuate t)
   :gfhook 'indent-guide-mode
+  :init
+  (lain/set-major-mode-leader-keys tuareg-mode
+    "m"  '(:ignore t :wk "merlin")
+    "d"  '(:ignore t :wk "dune")
+    "e"  '(:ignore t :wk "eval"))
   :config
   (tuareg-opam-update-env (tuareg-opam-current-compiler)))
 
@@ -15,16 +20,27 @@
    utop-mode-map
    "C-t" 'utop-history-goto-next
    "C-n" 'utop-history-goto-prev)
+  (emacs
+   utop-mode-map
+   "C-c C-s" 'lain/ocaml-switch-to-ocaml-buffer)
+  (lain-tuareg-mode-map
+   "'"  'utop
+   "er" 'utop-eval-region
+   "ee" 'utop-eval-phrase
+   "eb" 'utop-eval-buffer
+   "k"  'utop-kill)
+  :init
+  (defun lain/ocaml-switch-to-ocaml-buffer ()
+    (interactive)
+    (if (derived-mode-p 'utop-mode)
+	(if-let ((buf (--find (with-current-buffer it
+				(derived-mode-p 'tuareg-mode))
+			      (buffer-list))))
+	    (pop-to-buffer-same-window buf)
+	  (user-error "No Ocaml buffer found"))
+      (user-error "Not in a utop REPL buffer")))
   :config
-  (lain/set-major-mode-leader-keys tuareg-mode
-    "'"  'utop
-    "m"  '(:ignore t :wk "merlin")
-    "d"  '(:ignore t :wk "dune")
-    "e"  '(:ignore t :wk "eval")
-    "er" 'utop-eval-region
-    "ee" 'utop-eval-phrase
-    "eb" 'utop-eval-buffer
-    "k"  'utop-kill)
+  (evil-set-initial-state 'utop-mode 'emacs)
   (setq utop-protocol-version "1")
   (setq utop-command "opam config exec -- dune utop . -- -emacs")
   (lain/set-popup-rules '("^\\*utop\\*$" :quit nil :size 0.3)))
@@ -54,8 +70,10 @@
    "mt" 'merlin-type-enclosing)
   :init
   (setq merlin-completion-with-doc t)
+  :config
   (after tuareg
-    (lain/set-company-backend '(tuareg-mode) 'merlin-company-backend)))
+    (lain/set-company-backend '(tuareg-mode) 'merlin-company-backend))
+  (lain/set-popup-rules '("^\\*merlin-types\\*$" :size 0.3 :slot -1)))
 
 (use-package merlin-eldoc
   :after merlin
