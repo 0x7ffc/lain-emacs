@@ -48,14 +48,20 @@
 (use-package dune
   :general
   (lain-tuareg-mode-map
+   "db" 'lain/ocaml-build-project
    "dp" 'dune-promote
    "dt" 'dune-runtest-and-promote
    "dF" 'lain/ocaml-format-project)
   :init
+  (defun lain/ocaml-build-project ()
+    (interactive)
+    (async-shell-command "dune build"))
   (defun lain/ocaml-format-project ()
     (interactive)
-    (y-or-n-p
-     (async-shell-command "dune build @fmt --auto-promote"))))
+    (when (y-or-n-p "Format now?")
+      (async-shell-command "dune build @fmt --auto-promote")))
+  :config
+  (lain/set-popup-rules '("^\\*compilation\\*$" :slot 1)))
 
 (use-package merlin
   :ghook 'tuareg-mode-hook
