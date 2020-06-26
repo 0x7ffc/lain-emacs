@@ -81,9 +81,11 @@
    "pb" 'projectile-switch-to-buffer
    "pW" 'lain/projectile-cleanup-whitespace)
   :init
-  (when (executable-find "fd")
+  (-when-let ((fd (cond ((executable-find "fd") "fd")
+		       ((executable-find "fdfind") "fdfind")
+		       (t nil))))
     (setq
-     projectile-git-command "fd . -t f -0 -c never"
+     projectile-git-command (s-concat fd " . -t f -0 -c never")
      projectile-generic-command projectile-git-command))
   (setq
    projectile-enable-caching t
