@@ -34,13 +34,28 @@
   ((normal insert)
    robe-mode-map
    "M-." 'robe-jump)
+  ((normal insert)
+   inf-ruby-minor-mode-map
+   "C-c C-e" 'ruby-send-definition
+   "C-c M-e" 'ruby-send-definition-and-go
+   "C-c C-l" 'ruby-send-line
+   "C-c M-l" 'ruby-send-line-and-go)
   :config
   (lain/set-popup-rules
     '("^\\*ruby\\*$" :quit nil :select t :size 0.3)
     '("^\\*pry\\*$" :quit nil :size 0.3)
     '("^\\*robe-doc\\*$" :select t :slot 1 :size 0.3))
   (lain/set-major-mode-leader-keys (inf-ruby-mode enh-ruby-mode)
-    "'" 'robe-start)
+    "'" 'robe-start
+    "e"  '(:ignore t :wk "eval")
+    "ee" 'ruby-send-definition
+    "eE" 'ruby-send-definition-and-go
+    "eb" 'ruby-send-buffer
+    "eB" 'ruby-send-buffer-and-go
+    "el" 'ruby-send-line
+    "eL" 'ruby-send-line-and-go
+    "er" 'ruby-send-region
+    "eR" 'ruby-send-region-and-go)
   (lain/set-company-backend '(enh-ruby-mode inf-ruby-mode) 'company-robe))
 
 (use-package rbenv
@@ -78,6 +93,11 @@
   :diminish (seeing-is-believing . "")
   :commands
   (seeing-is-believing seeing-is-believing-run seeing-is-believing-clear)
-  :ghook ('enh-ruby-mode-hook 'seeing-is-believing))
+  :ghook ('enh-ruby-mode-hook 'seeing-is-believing)
+  :init
+  (lain/set-major-mode-leader-keys (inf-ruby-mode enh-ruby-mode)
+    "m"  '(:ignore t :wk "seeing")
+    "mb" 'seeing-is-believing-run
+    "mc" 'seeing-is-believing-clear))
 
 (provide 'lain-ruby)

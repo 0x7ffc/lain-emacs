@@ -43,11 +43,4 @@
       (magit-restore-window-configuration)
       (-each buffers 'kill-buffer))))
 
-(use-package evil-magit
-  :demand t
-  :after (evil magit)
-  :config
-  (lain/dv-keys `(,evil-magit-state visual) 'magit-mode-map
-    "j" "k" "C-j" "C-k"))
-
 (provide 'lain-utils)

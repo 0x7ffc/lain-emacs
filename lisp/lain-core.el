@@ -277,6 +277,10 @@
 
 (use-package xref
   :general
+  ((normal insert)
+   global
+   "M-." 'xref-find-definitions
+   "M-," 'xref-pop-marker-stack)
   (normal
    xref--xref-buffer-mode-map
    "q"   'quit-window

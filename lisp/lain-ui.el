@@ -136,7 +136,7 @@
      scroll-bar-toolkit-scroll
      evil-mouse-drag-region)))
 
-(define-minor-mode lain-zen-mode
+(define-minor-mode lain-zen-mode "Z"
   :init-value nil :lighter " Z" :global nil
   (cond
    (lain-zen-mode
