@@ -46,6 +46,7 @@
 ;; evil-magit is moved to evil-collection
 (use-package evil-collection
   :demand t
+  :diminish evil-collection-unimpaired-mode
   :after (evil magit)
   :init
   (setq
