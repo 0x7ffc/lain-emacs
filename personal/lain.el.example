@@ -17,6 +17,10 @@
    lain-major-mode-leader-key ","
    lain-fullscreen-at-startup nil
    lain-inhibit-startup-time nil
+   lain-behind-GFW t
+   lain-proxy-addr nil
+   lain-proxy-username nil
+   lain-proxy-pass nil
    lain-modules
    '(
      lain-utils

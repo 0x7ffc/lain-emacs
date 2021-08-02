@@ -43,4 +43,17 @@
       (magit-restore-window-configuration)
       (-each buffers 'kill-buffer))))
 
+;; evil-magit is moved to evil-collection
+(use-package evil-collection
+  :demand t
+  :after (evil magit)
+  :init
+  (setq
+   evil-collection-mode-list
+   '(magit))
+  :config
+  (evil-collection-init)
+  (lain/dv-keys `(,evil-collection-magit-state visual) 'magit-mode-map
+    "j" "k" "C-j" "C-k"))
+
 (provide 'lain-utils)

@@ -5,6 +5,7 @@
   :defer .1 ;; we want evil but we also want SPEED...
   :init
   (setq
+   evil-want-keybinding nil
    evil-ex-visual-char-range t
    evil-disable-insert-state-bindings t
    evil-want-C-i-jump nil
