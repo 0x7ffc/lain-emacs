@@ -99,7 +99,7 @@
    doom-modeline-github nil)
   (defun lain/init-doom-modeline (&optional frame)
     (with-selected-frame (or frame (selected-frame))
-      (doom-modeline-init)))
+      (doom-modeline-mode 1)))
   (add-hook (if (daemonp)
 		'after-make-frame-functions
 	      'after-init-hook)
